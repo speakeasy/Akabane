@@ -1,5 +1,5 @@
-# Akaibane
+# Akabane
 
 
 to run:
-java -cp Akaibane-1.0-SNAPSHOT.jar org.bibanon.akaibane.Akaibane
+java -cp Akabane-1.0-SNAPSHOT.jar org.bibanon.akabane.Akabane
