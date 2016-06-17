@@ -1,4 +1,4 @@
-package org.bibanon.akaibane;
+package org.bibanon.akabane;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -9,7 +9,7 @@ import org.pircbotx.PircBotX;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.MessageEvent;
 
-public class AkaibaneInstance extends ListenerAdapter {
+public class AkabaneInstance extends ListenerAdapter {
 
     static PircBotX bot;
     static ArchiveIsHtmlParser archiveis = new ArchiveIsHtmlParser();
@@ -131,7 +131,7 @@ public class AkaibaneInstance extends ListenerAdapter {
                 .setName("Akabane_")
                 .addServer("irc.rizon.net")
                 .addAutoJoinChannel("#bibanon-ab")
-                .addListener(new AkaibaneInstance())
+                .addListener(new AkabaneInstance())
                 .buildConfiguration();
 
         //Create our bot with the configuration

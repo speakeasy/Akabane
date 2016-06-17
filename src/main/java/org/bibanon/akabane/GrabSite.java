@@ -1,4 +1,4 @@
-package org.bibanon.akaibane;
+package org.bibanon.akabane;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
