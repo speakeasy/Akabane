@@ -25,7 +25,7 @@ public enum Rank {
                     case ".is": {
                         return true;
                     }
-                    case ".grab": {
+                    case ".a": {
                         return true;
                     }
                     case ".rr": {

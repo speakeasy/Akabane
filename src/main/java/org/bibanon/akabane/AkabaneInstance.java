@@ -37,7 +37,7 @@ public class AkabaneInstance extends ListenerAdapter {
             return;
         }
         switch (message[0]) {
-            case ".grab": {
+            case ".a": {
                 cmdutil = new String[message.length - 1];
                 for (i = 1; i < message.length; i++) {
                     cmdutil[i - 1] = message[i];
