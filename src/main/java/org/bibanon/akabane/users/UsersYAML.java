@@ -124,6 +124,9 @@ public class UsersYAML {
 
     public boolean firstRun() {
         if (UsersYAML.exists() && BlockedYAML.exists()) {
+            if((!Permdir.exists()) && PWD.canWrite()) {
+                Permdir.mkdir();
+            }
             return false;
         }
         return true;
