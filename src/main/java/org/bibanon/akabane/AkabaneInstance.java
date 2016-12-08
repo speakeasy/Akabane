@@ -29,6 +29,9 @@ public class AkabaneInstance extends ListenerAdapter {
     @Override
     public void onMessage(MessageEvent event) {
         String[] message = event.getMessage().split(" ");
+        if(!event.getUser().isVerified()) {
+            return;
+        }
 
         if (!users.hasPermission(event.getUser().getNick(), message[0])) {
             return;
