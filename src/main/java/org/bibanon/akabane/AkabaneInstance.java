@@ -1,5 +1,6 @@
 package org.bibanon.akabane;
 
+import org.bibanon.akabane.users.Users;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.Date;
@@ -66,7 +67,7 @@ public class AkabaneInstance extends ListenerAdapter {
                 break;
             }
             case ".time": {
-                event.respond("The current time is: " + new Date());
+                event.respond("The current time is: " + new Date() + "UTC");
                 break;
             }
             default: {
