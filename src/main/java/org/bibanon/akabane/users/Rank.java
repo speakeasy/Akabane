@@ -15,7 +15,7 @@ public enum Rank {
     VISITOR,
     BLOCKED;
 
-    private static boolean hasPermission(Rank rank, String command) {
+    static boolean hasPermission(Rank rank, String command) {
         switch (rank) {
             case SUPER: {
                 return true;

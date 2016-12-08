@@ -29,7 +29,7 @@ public class Users {
     }
 
     public boolean isUser(String user) {
-        if (Users) {
+        if (Users.isUser(user)) {
             return true;
         }
         return false;
@@ -37,8 +37,11 @@ public class Users {
 
     public Rank getRank(String user) {
         Rank rank = Rank.VISITOR;
-        if (Users.containsKey(user)) {
-            rank = Users.get(user);
+        if (Users.isUser(user)) {
+            rank = Users.getUser(user).getRank();
+        }
+        if(Users.isBlocked(user)) {
+                return Rank.BLOCKED;
         }
         return rank;
     }

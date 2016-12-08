@@ -35,12 +35,12 @@ public class UsersYAML {
     public UsersYAML() {
         Uyaml = new UsersYAML();
     }
-    
+
     public boolean isUser(String user) {
         int len = users.size();
-        for(int i = 0; i<len; i++) {
-            if(users.get(i).getName() == user) {
-                if(blocked.contains(users.get(i))) {
+        for (int i = 0; i < len; i++) {
+            if (users.get(i).getName() == user) {
+                if (blocked.contains(users.get(i))) {
                     users.remove(i);
                     return false;
                 }
@@ -48,6 +48,28 @@ public class UsersYAML {
             }
         }
         return false;
+    }
+    
+    public boolean isBlocked(String user) {
+        int len = blocked.size();
+        for (int i = 0; i<len; i++) {
+            if(blocked.get(i).getName() == user) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public User getUser(String user) {
+        if (isUser(user)) {
+            int len = users.size();
+            for (int i = 0; i < len; i++) {
+                if(users.get(i).getName() == user) {
+                    return users.get(i);
+                }
+            }
+        }
+        return null;
     }
 
     public void addUser(User auser) {
