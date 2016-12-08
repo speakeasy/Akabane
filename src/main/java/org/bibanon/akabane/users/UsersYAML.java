@@ -102,6 +102,10 @@ public class UsersYAML {
             Logger.getLogger(UsersYAML.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void writeOut() {
+        writeYaml(UsersYAML, users);
+        writeYaml(BlockedYAML, blocked);
+    }
 
     private List<User> loadYaml(File fyaml) throws FileNotFoundException {
         InputStream input = new FileInputStream(fyaml);

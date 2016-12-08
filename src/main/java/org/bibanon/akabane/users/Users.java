@@ -19,8 +19,9 @@ public class Users {
             addUser("Gazlene", Rank.USER);
             addUser("r3c0d3x", Rank.USER);
             addUser("jondon", Rank.USER);
-            
+            Users.writeOut();
         }
+        Users.loadUsers();
     }
 
     public void addUser(String suser, Rank rank) {
