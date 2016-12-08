@@ -5,8 +5,6 @@
  */
 package org.bibanon.akabane.users;
 
-import java.util.HashMap;
-
 public class Users {
 
     UsersYAML Users = new UsersYAML();

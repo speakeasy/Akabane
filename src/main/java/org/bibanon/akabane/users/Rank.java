@@ -34,8 +34,11 @@ public enum Rank {
                     case ".time": {
                         return true;
                     }
-                    default: {
+                    case ".status": {
                         return true;
+                    }
+                    default: {
+                        return false;
                     }
                 }
             }
