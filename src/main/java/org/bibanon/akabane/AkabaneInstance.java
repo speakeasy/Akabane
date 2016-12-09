@@ -2,7 +2,6 @@ package org.bibanon.akabane;
 
 import org.bibanon.akabane.users.Users;
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.Random;
 import org.pircbotx.Configuration;
@@ -72,6 +71,26 @@ public class AkabaneInstance extends ListenerAdapter {
             case ".time": {
                 event.respond("The current time is: " + new Date() + "UTC");
                 break;
+            }
+            case ".add": {
+                cmdutil = new String[message.length - 1];
+                
+                for (i = 1; i < message.length; i++) {
+                    cmdutil[i - 1] = message[i];
+                }
+                users.addUser(cmdutil, event);
+                cmdutil = null;
+                return;
+            }
+            case ".block": {
+                cmdutil = new String[message.length - 1];
+                
+                for (i = 1; i < message.length; i++) {
+                    cmdutil[i - 1] = message[i];
+                }
+                users.blockUser(cmdutil, event);
+                cmdutil = null;
+                return;
             }
             default: {
                 return;

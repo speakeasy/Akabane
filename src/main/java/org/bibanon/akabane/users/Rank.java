@@ -10,10 +10,20 @@ package org.bibanon.akabane.users;
  * @author speakeasy
  */
 public enum Rank {
-    SUPER,
-    USER,
-    VISITOR,
-    BLOCKED;
+    SUPER ("super"),
+    USER ("user"),
+    VISITOR ("visitor"),
+    BLOCKED ("blocked");
+    
+    private final String rank;
+    
+    Rank(String arank) {
+        rank = arank;
+    }
+    
+    private String getRank() {
+        return rank;
+    }
 
     static boolean hasPermission(Rank rank, String command) {
         switch (rank) {

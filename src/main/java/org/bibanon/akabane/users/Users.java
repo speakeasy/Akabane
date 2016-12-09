@@ -5,6 +5,8 @@
  */
 package org.bibanon.akabane.users;
 
+import org.pircbotx.hooks.events.MessageEvent;
+
 public class Users {
 
     UsersYAML Users = new UsersYAML();
@@ -33,6 +35,13 @@ public class Users {
         }
         return false;
     }
+    
+    public boolean isBlocked(String user) {
+        if (Users.isBlocked(user)) {
+            return true;
+        }
+        return false;
+    }
 
     public Rank getRank(String user) {
         Rank rank = Rank.VISITOR;
@@ -48,6 +57,34 @@ public class Users {
     public boolean hasPermission(String user, String command) {
         Rank rank = getRank(user);
         return Rank.hasPermission(rank, command);
+    }
+
+    public void addUser(String[] cmdutil, MessageEvent event) {
+        if(hasPermission(event.getUser().getNick(), ".add")) {
+            if(cmdutil.length == 2) {
+                for(Rank r : Rank.values()) {
+                    if(r.toString().equals(cmdutil[1].toUpperCase())) {
+                        if(cmdutil[0].length() >= 3 &! isUser(cmdutil[0]) &! isBlocked(cmdutil[0])) {
+                            addUser(cmdutil[0], r);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void blockUser(String[] cmdutil, MessageEvent event) {
+        if(hasPermission(event.getUser().getNick(), ".block")) {
+            if(cmdutil.length == 1 && cmdutil[0].length() >= 3) {
+                if(Users.isUser(cmdutil[0])) {
+                    Users.addBlocked(Users.getUser(cmdutil[0]));
+                } else {
+                    User blocked = new User(cmdutil[0], Rank.BLOCKED);
+                    Users.addBlocked(blocked);
+                }
+            }
+        }
     }
 
 }
