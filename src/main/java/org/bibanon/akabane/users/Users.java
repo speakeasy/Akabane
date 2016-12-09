@@ -66,6 +66,7 @@ public class Users {
                     if(r.toString().equals(cmdutil[1].toUpperCase())) {
                         if(cmdutil[0].length() >= 3 &! isUser(cmdutil[0]) &! isBlocked(cmdutil[0])) {
                             addUser(cmdutil[0], r);
+                            Users.writeOut();
                             return;
                         }
                     }
@@ -82,6 +83,7 @@ public class Users {
                 } else {
                     User blocked = new User(cmdutil[0], Rank.BLOCKED);
                     Users.addBlocked(blocked);
+                    Users.writeOut();
                 }
             }
         }
