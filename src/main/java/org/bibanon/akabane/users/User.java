@@ -11,8 +11,8 @@ package org.bibanon.akabane.users;
  */
 class User {
 
-    private final String name;
-    private final Rank rank;
+    public final String name;
+    public final Rank rank;
 
     public User(String name, Rank rank) {
         this.name = name;

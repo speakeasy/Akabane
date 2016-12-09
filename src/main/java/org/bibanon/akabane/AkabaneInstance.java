@@ -161,5 +161,6 @@ public class AkabaneInstance extends ListenerAdapter {
         bot = new PircBotX(configuration);
         //Connect to the server
         bot.startBot();
+        //bot.send();
     }
 }

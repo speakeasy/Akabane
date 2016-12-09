@@ -12,7 +12,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Spliterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.yaml.snakeyaml.Yaml;
@@ -28,12 +30,13 @@ public class UsersYAML {
     public static final File UsersYAML = new File(Permdir.getAbsolutePath() + "/users.yaml");
     public static final File BlockedYAML = new File(Permdir.getAbsolutePath() + "/blocked.yaml");
 
-    public static UsersYAML Uyaml;
+    //public static UsersYAML Uyaml;
     private static List<User> users;
     private static List<User> blocked;
 
     public UsersYAML() {
-        Uyaml = new UsersYAML();
+        users = new ArrayList<User>();
+        blocked = new ArrayList<User>();
     }
 
     public boolean isUser(String user) {

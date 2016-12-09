@@ -17,6 +17,11 @@
               <goal>shade</goal>
             </goals>
             <configuration>
+              <transformers>
+                <transformer>
+                  <mainClass>org.bibanon.akabane.Akabane</mainClass>
+                </transformer>
+              </transformers>
               <filters>
                 <filter>
                   <artifact>*:*</artifact>

@@ -19,7 +19,9 @@ public class Users {
             addUser("Gazlene", Rank.USER);
             addUser("r3c0d3x", Rank.USER);
             addUser("jondon", Rank.USER);
+            System.out.println(Users);
             Users.writeOut();
+            
         }
         Users.loadUsers();
     }
