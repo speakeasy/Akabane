@@ -130,7 +130,7 @@ public class AkabaneInstance extends ListenerAdapter {
                             break;
                         }
                         case "help": {
-                            event.respond("Usage: \".grab [<set> <igsetsoptions>] [<meta> <metadata[;tags[;separated[;...]]]>] <url>\"");
+                            event.respond("Usage: \".a [<set> <igsetsoptions>] [<meta> <metadata[;tags[;separated[;...]]]>] <url>\"");
                             return;
                         }
                         default: {
