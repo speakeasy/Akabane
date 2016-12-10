@@ -12,7 +12,7 @@ package org.bibanon.akabane.users;
 class User {
 
     public final String name;
-    public final Rank rank;
+    public Rank rank;
 
     public User(String name, Rank rank) {
         this.name = name;

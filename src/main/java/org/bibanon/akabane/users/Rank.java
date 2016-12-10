@@ -10,27 +10,27 @@ package org.bibanon.akabane.users;
  * @author speakeasy
  */
 public enum Rank {
-    SUPER ("super"),
-    USER ("user"),
-    VISITOR ("visitor"),
-    BLOCKED ("blocked");
-    
+    OP("op"),
+    HOP("hop"),
+    VOICE("voice"),
+    BLOCKED("blocked");
+
     private final String rank;
-    
+
     Rank(String arank) {
         rank = arank;
     }
-    
+
     private String getRank() {
         return rank;
     }
 
     static boolean hasPermission(Rank rank, String command) {
         switch (rank) {
-            case SUPER: {
+            case OP: {
                 return true;
             }
-            case USER: {
+            case HOP: {
                 switch (command) {
                     case ".is": {
                         return true;
@@ -52,9 +52,21 @@ public enum Rank {
                     }
                 }
             }
-            case VISITOR: {
+            case VOICE: {
                 switch (command) {
+                    case ".is": {
+                        return true;
+                    }
+                    case ".a": {
+                        return true;
+                    }
+                    case ".rr": {
+                        return true;
+                    }
                     case ".time": {
+                        return true;
+                    }
+                    case ".status": {
                         return true;
                     }
                     default: {

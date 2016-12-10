@@ -4,10 +4,17 @@ import org.bibanon.akabane.users.Users;
 import java.io.File;
 import java.util.Date;
 import java.util.Random;
+import org.bibanon.akabane.ircauth.IRCAuth;
+import org.bibanon.akabane.ircauth.YAMLAuth;
+import org.bibanon.akabane.users.Rank;
+import org.pircbotx.Channel;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
+import org.pircbotx.User;
 import org.pircbotx.hooks.ListenerAdapter;
+import org.pircbotx.hooks.events.JoinEvent;
 import org.pircbotx.hooks.events.MessageEvent;
+import org.pircbotx.hooks.events.PartEvent;
 
 public class AkabaneInstance extends ListenerAdapter {
 
@@ -22,13 +29,42 @@ public class AkabaneInstance extends ListenerAdapter {
     private static File cwd = new File(System.getProperty("user.dir", "./"));
     private static String url;
     private static String[] cmdutil;
+
+    private IRCAuth authpw = new IRCAuth();
     private static String igsets, meta = "";
     private static int i;
 
     @Override
+    public void onJoin(JoinEvent join) {
+        for (User u : join.getChannel().getUsers()) {
+            for (User us : join.getChannel().getOwners()) {
+                users.addUser(join.getUser().getNick(), Rank.OP);
+            }
+            for (User us : join.getChannel().getSuperOps()) {
+                users.addUser(join.getUser().getNick(), Rank.OP);
+            }
+            for (User us : join.getChannel().getOps()) {
+                users.addUser(join.getUser().getNick(), Rank.OP);
+            }
+            for (User us : join.getChannel().getHalfOps()) {
+                users.addUser(join.getUser().getNick(), Rank.HOP);
+            }
+            for (User us : join.getChannel().getVoices()) {
+                users.addUser(join.getUser().getNick(), Rank.VOICE);
+            }
+
+        }
+    }
+
+    @Override
+    public void onPart(PartEvent part) {
+        users.removeUser(part.getUser().getNick());
+    }
+
+    @Override
     public void onMessage(MessageEvent event) {
         String[] message = event.getMessage().split(" ");
-        if(!event.getUser().isVerified()) {
+        if (!event.getUser().isVerified()) {
             return;
         }
 
@@ -71,29 +107,6 @@ public class AkabaneInstance extends ListenerAdapter {
             case ".time": {
                 event.respond("The current time is: " + new Date() + "UTC");
                 break;
-            }
-            case ".add": {
-                cmdutil = new String[message.length - 1];
-                
-                for (i = 1; i < message.length; i++) {
-                    cmdutil[i - 1] = message[i];
-                }
-                users.addUser(cmdutil, event);
-                cmdutil = null;
-                return;
-            }
-            case ".block": {
-                cmdutil = new String[message.length - 1];
-                
-                for (i = 1; i < message.length; i++) {
-                    cmdutil[i - 1] = message[i];
-                }
-                users.blockUser(cmdutil, event);
-                cmdutil = null;
-                return;
-            }
-            default: {
-                return;
             }
         }
     }
@@ -145,22 +158,31 @@ public class AkabaneInstance extends ListenerAdapter {
 
     public void init(String[] args) throws Exception {
         System.out.println("Starting...");
-        users.tmpImit();
+
         iagrabsite = new IAGrabSiteProcessManager();
         iagrabsite.start();
         System.out.println("Loading Configuration...");
+        //Loading YAML NickServ password
+        YAMLAuth yauth = new YAMLAuth();
         //Configure what we want our bot to do
         Configuration configuration = new Configuration.Builder()
-                .setName("Akabane_")
+                .setName("Akabane")
                 .addServer("irc.rizon.net")
                 .addAutoJoinChannel("#bibanon-ab")
                 .addListener(new AkabaneInstance())
+                .setLogin("Akabane")
+                .setRealName("Akabane Archive Bot (Alpha)")
+                .setNickservNick("NickServ")
+                .setNickservPassword(authpw.password)
                 .buildConfiguration();
 
         //Create our bot with the configuration
         bot = new PircBotX(configuration);
         //Connect to the server
         bot.startBot();
-        //bot.send();
+        //users.tmpImit();
+        if (bot.isConnected()) {
+            System.out.println("Connected.");
+        }
     }
 }
