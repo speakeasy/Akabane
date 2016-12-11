@@ -11,6 +11,7 @@ import org.pircbotx.Channel;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
 import org.pircbotx.User;
+import org.pircbotx.hooks.Event;
 import org.pircbotx.hooks.ListenerAdapter;
 import org.pircbotx.hooks.events.JoinEvent;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -36,33 +37,18 @@ public class AkabaneInstance extends ListenerAdapter {
 
     @Override
     public void onJoin(JoinEvent join) {
-        for (User u : join.getChannel().getUsers()) {
-            for (User us : join.getChannel().getOwners()) {
-                users.addUser(join.getUser().getNick(), Rank.OP);
-            }
-            for (User us : join.getChannel().getSuperOps()) {
-                users.addUser(join.getUser().getNick(), Rank.OP);
-            }
-            for (User us : join.getChannel().getOps()) {
-                users.addUser(join.getUser().getNick(), Rank.OP);
-            }
-            for (User us : join.getChannel().getHalfOps()) {
-                users.addUser(join.getUser().getNick(), Rank.HOP);
-            }
-            for (User us : join.getChannel().getVoices()) {
-                users.addUser(join.getUser().getNick(), Rank.VOICE);
-            }
-
-        }
+        updateUsers(join.getChannel());
     }
 
     @Override
     public void onPart(PartEvent part) {
         users.removeUser(part.getUser().getNick());
+        updateUsers(part.getChannel());
     }
 
     @Override
     public void onMessage(MessageEvent event) {
+        updateUsers(event.getChannel());
         String[] message = event.getMessage().split(" ");
         if (!event.getUser().isVerified()) {
             return;
@@ -115,8 +101,8 @@ public class AkabaneInstance extends ListenerAdapter {
         System.out.println("Grab...");
         igsets = "";
         meta = "";
-        if (cmd.length > 1) {
-            if (cmd.length % 3 == 0 || cmd.length % 5 == 0) {
+        if (cmd.length >= 1) {
+            if (cmd.length % 2 == 0 || cmd.length % 4 == 0 || cmd.length == 1) {
                 for (i = 0; i < cmd.length; i++) {
                     switch (cmd[i]) {
                         case "set": {
@@ -140,7 +126,7 @@ public class AkabaneInstance extends ListenerAdapter {
                 }
 
             } else {
-                event.respond("Usage: \".grab [<set> <igsetsoptions>] [<meta> <metadata[;tags[;separated[;...]]]>] <url>\"");
+                event.respond("Usage: \".a [<set> <igsetsoptions>] [<meta> <metadata[;tags[;separated[;...]]]>] <url>\"");
                 return;
             }
         } else if (cmd[0] != null) {
@@ -184,5 +170,26 @@ public class AkabaneInstance extends ListenerAdapter {
         if (bot.isConnected()) {
             System.out.println("Connected.");
         }
+    }
+
+    private void updateUsers(Channel ch) {
+                for (User u : ch.getUsers()) {
+            for (User us : ch.getOwners()) {
+                users.addUser(us.getNick(), Rank.OP);
+            }
+            for (User us : ch.getSuperOps()) {
+                users.addUser(us.getNick(), Rank.OP);
+            }
+            for (User us : ch.getOps()) {
+                users.addUser(us.getNick(), Rank.OP);
+            }
+            for (User us : ch.getHalfOps()) {
+                users.addUser(us.getNick(), Rank.HOP);
+            }
+            for (User us : ch.getVoices()) {
+                users.addUser(us.getNick(), Rank.VOICE);
+            }
+        }
+        
     }
 }
