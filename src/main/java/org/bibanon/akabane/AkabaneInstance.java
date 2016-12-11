@@ -102,7 +102,7 @@ public class AkabaneInstance extends ListenerAdapter {
         igsets = "";
         meta = "";
         if (cmd.length >= 1) {
-            if (cmd.length % 2 == 0 || cmd.length % 4 == 0 || cmd.length == 1) {
+            if (cmd.length % 3 == 0 || cmd.length % 5 == 0 || cmd.length == 1) {
                 for (i = 0; i < cmd.length; i++) {
                     switch (cmd[i]) {
                         case "set": {
