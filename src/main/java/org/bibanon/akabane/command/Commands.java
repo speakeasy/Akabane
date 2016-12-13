@@ -37,6 +37,12 @@ public class Commands {
         
         argsNames = new HashMap<String, Boolean>();
         
+        // CMD: .set
+        argsNames.put("job", Boolean.TRUE); // .set <<"job" <id#>> igsets,seperated,values>.
+        commands.add(new CommandSet(".set", CommandSet.class, argsNames.size(), argsNames));
+        
+        argsNames = new HashMap<String, Boolean>();
+        
         // CMD: .is
         argsNames.put("url", Boolean.TRUE); // url to archive.
         commands.add(new CommandIS(".is", CommandIS.class, argsNames.size(), argsNames));
@@ -44,7 +50,11 @@ public class Commands {
         argsNames = new HashMap<String, Boolean>();
         
         // CMD: .rr
-        //commands.add(new Command(".rr", CommandRR.class));
-        //commands.add(new Command(".time", CommandTime.class));
+        commands.add(new CommandRR(".rr", CommandRR.class, argsNames.size(), argsNames));
+        
+        argsNames = new HashMap<String, Boolean>();
+        
+        // CMD: .time
+        commands.add(new CommandTime(".time", CommandTime.class, argsNames.size(), argsNames));
     }
 }
