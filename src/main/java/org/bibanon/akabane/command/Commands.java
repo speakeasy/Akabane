@@ -20,11 +20,30 @@ public class Commands {
     }
     
     private void init() {
+        
         HashMap<String, Boolean> argsNames = new HashMap<String, Boolean>();
-        argsNames.put(".help", Boolean.FALSE); // help doesn't take args.
-        commands.add(new Command(".a", CommandGrab.class, argsNames.size(), argsNames));
+        
+        // CMD: .status 
+        argsNames.put("list", Boolean.FALSE); // .status list, lists jobs
+        commands.add(new Command(".status", CommandStatus.class, argsNames.size(), argsNames));
+        
         argsNames = new HashMap<String, Boolean>();
-        //commands.add(new Command(".is", CommandIS.class));
+        
+        // CMD: .a
+        argsNames.put("help", Boolean.FALSE); // help doesn't take args.
+        argsNames.put("grab", Boolean.TRUE); // grab takes url to grab.
+        argsNames.put("meta", Boolean.TRUE); // meta takes ; separated values. warcarchives;website;...
+        commands.add(new CommandGrab(".a", CommandGrab.class, argsNames.size(), argsNames));
+        
+        argsNames = new HashMap<String, Boolean>();
+        
+        // CMD: .is
+        argsNames.put("url", Boolean.TRUE); // url to archive.
+        commands.add(new CommandIS(".is", CommandIS.class, argsNames.size(), argsNames));
+        
+        argsNames = new HashMap<String, Boolean>();
+        
+        // CMD: .rr
         //commands.add(new Command(".rr", CommandRR.class));
         //commands.add(new Command(".time", CommandTime.class));
     }

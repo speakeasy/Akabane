@@ -11,12 +11,10 @@ import java.util.HashMap;
  *
  * @author speakeasy
  */
-public class CommandTime extends Command {
+public class CommandStatus extends Command {
     
-    public CommandTime(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
+    public CommandStatus(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
         super(cs, cc, argnum, argsNames);
     }
-    
-
     
 }

@@ -5,14 +5,17 @@
  */
 package org.bibanon.akabane.command;
 
+import java.util.HashMap;
+
 /**
  *
  * @author speakeasy
  */
 public class CommandGrab extends Command {
-    
-    public CommandGrab(String cs, Class cc) {
-        super(cs, CommandGrab.class);
+
+    public CommandGrab(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
+        super(cs, cc, argnum, argsNames);
     }
+
     
 }

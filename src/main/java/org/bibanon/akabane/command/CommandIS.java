@@ -5,14 +5,18 @@
  */
 package org.bibanon.akabane.command;
 
+import java.util.HashMap;
+
 /**
  *
  * @author speakeasy
  */
 public class CommandIS extends Command {
     
-    public CommandIS(String cs, Class cc) {
-        super(cs, CommandIS.class);
+    public CommandIS(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
+        super(cs, cc, argnum, argsNames);
     }
+    
+
     
 }
