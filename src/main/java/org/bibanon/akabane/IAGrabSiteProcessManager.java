@@ -32,7 +32,7 @@ public class IAGrabSiteProcessManager extends Thread {
     public IAGrabSiteProcessManager() {
     }
 
-    public int addGrab(String url, String igsets, String meta) {
+    public int addGrab(String url, String igsets, String meta) throws InterruptedException {
         if (unusedgs.isEmpty()) {
             gs = new GrabSite();
         } else {
@@ -40,12 +40,14 @@ public class IAGrabSiteProcessManager extends Thread {
                 gs = unusedgs.remove(0);
             }
         }
+        Thread t = new Thread(gs);
         gs.setGrabSite(url, igsets);
         gs.setMetadata(meta);
-        gs.start();
+        t.start();
+        Thread.sleep(50);
         gspid = gs.getPid();
 
-        addGrabProcess(gs);
+        this.addGrabProcess(gs);
 
         gs = null;
         return gspid;
@@ -94,10 +96,10 @@ public class IAGrabSiteProcessManager extends Thread {
         
         while (running) {
             try {
-                Thread.sleep(50);
+                Thread.sleep(500);
                 for (int i = 0; i < grabsiteskeys.size(); i++) {
 
-                    if (!grabsites.get(grabsiteskeys.get(i)).getProcess().isAlive()) {
+                    if (grabsites.get(grabsiteskeys.get(i)).getProcess().isAlive() != true) {
                         grabsites.get(grabsiteskeys.get(i)).stopRunning();
                         unusedgs.add(grabsites.remove(grabsiteskeys.get(i)));
                     }

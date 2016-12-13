@@ -1,12 +1,15 @@
 package org.bibanon.akabane;
 
-import org.bibanon.akabane.users.Users;
+import org.bibanon.akabane.command.users.Users;
 import java.io.File;
 import java.util.Date;
 import java.util.Random;
-import org.bibanon.akabane.ircauth.IRCAuth;
-import org.bibanon.akabane.ircauth.YAMLAuth;
-import org.bibanon.akabane.users.Rank;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.bibanon.akabane.command.RunnableCommandProcessor;
+import org.bibanon.akabane.command.ircauth.IRCAuth;
+import org.bibanon.akabane.command.ircauth.YAMLAuth;
+import org.bibanon.akabane.command.users.Rank;
 import org.pircbotx.Channel;
 import org.pircbotx.Configuration;
 import org.pircbotx.PircBotX;
@@ -28,8 +31,8 @@ public class AkabaneInstance extends ListenerAdapter {
     //    static URLValidator validator = new URLValidator();
     //util
     private static File cwd = new File(System.getProperty("user.dir", "./"));
-    private static String url;
-    private static String[] cmdutil;
+    private static RunnableCommandProcessor processor = new RunnableCommandProcessor();
+    private static Thread pThread = new Thread(processor);
 
     private IRCAuth authpw = new IRCAuth();
     private static String igsets, meta = "";
@@ -49,60 +52,16 @@ public class AkabaneInstance extends ListenerAdapter {
     @Override
     public void onMessage(MessageEvent event) {
         updateUsers(event.getChannel());
-        String[] message = event.getMessage().split(" ");
-        if (!event.getUser().isVerified()) {
-            return;
-        }
-
-        if (!users.hasPermission(event.getUser().getNick(), message[0])) {
-            return;
-        }
-        switch (message[0]) {
-            case ".a": {
-                cmdutil = new String[message.length - 1];
-                for (i = 1; i < message.length; i++) {
-                    cmdutil[i - 1] = message[i];
-                }
-                grab(cmdutil, event);
-                cmdutil = null;
-                return;
-            }
-            case ".is": {
-                String response = "No dice.";
-                if (message.length > 1) {
-                    archiveis.init();
-                    response = archiveis.submitURL(message[1]);
-
-                    event.respond(response);
-                    url = null;
-                    return;
-                }
-                event.respond("Usage: \".is <url to archive>\"");
-                url = null;
-                return;
-            }
-            case ".rr": {
-                int r = rand.nextInt() % 6;
-                if (r == 0) {
-                    event.respond("*bang*");
-                } else {
-                    event.respond("*click*");
-                }
-                break;
-            }
-            case ".time": {
-                event.respond("The current time is: " + new Date() + "UTC");
-                break;
-            }
-        }
+        processor.updateUsers(users);
+        processor.addEvent(event);
     }
 
     public void grab(String[] cmd, MessageEvent event) {
         System.out.println("Grab...");
         igsets = "";
         meta = "";
-        if (cmd.length >= 1) {
-            if (cmd.length % 3 == 0 || cmd.length % 5 == 0 || cmd.length == 1) {
+        if (cmd.length > 1) {
+            if (cmd.length == 3 || cmd.length == 5 || cmd[0] == "help") {
                 for (i = 0; i < cmd.length; i++) {
                     switch (cmd[i]) {
                         case "set": {
@@ -130,13 +89,22 @@ public class AkabaneInstance extends ListenerAdapter {
                 return;
             }
         } else if (cmd[0] != null) {
-            url = cmd[0];
+            if (cmd[0] == "help") {
+                event.respond("Usage: \".grab [<set> <igsetsoptions>] [<meta> <metadata[;tags[;separated[;...]]]>] <url>\"");
+                return;
+            } else {
+                url = cmd[0];
+            }
         } else {
             event.respond("Usage: \".grab [<set> <igsetsoptions>] [<meta> <metadata[;tags[;separated[;...]]]>] <url>\"");
             url = "";
             return;
         }
-        event.respond("Grab-Site started: PID: " + iagrabsite.addGrab(url, igsets, meta));
+        if (url != "" && url != "help") {
+            event.respond("Grab-Site started: PID: " + iagrabsite.addGrab(url, igsets, meta));
+        } else {
+            event.respond("Usage: \".grab [<set> <igsetsoptions>] [<meta> <metadata[;tags[;separated[;...]]]>] <url>\"");
+        }
         igsets = "";
         meta = "";
         url = "";
@@ -166,14 +134,14 @@ public class AkabaneInstance extends ListenerAdapter {
         bot = new PircBotX(configuration);
         //Connect to the server
         bot.startBot();
-        //users.tmpImit();
+        pThread.start();
         if (bot.isConnected()) {
             System.out.println("Connected.");
         }
     }
 
     private void updateUsers(Channel ch) {
-                for (User u : ch.getUsers()) {
+        for (User u : ch.getUsers()) {
             for (User us : ch.getOwners()) {
                 users.addUser(us.getNick(), Rank.OP);
             }
@@ -190,6 +158,6 @@ public class AkabaneInstance extends ListenerAdapter {
                 users.addUser(us.getNick(), Rank.VOICE);
             }
         }
-        
+
     }
 }

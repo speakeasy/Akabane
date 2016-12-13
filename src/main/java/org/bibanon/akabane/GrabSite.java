@@ -33,8 +33,10 @@ public class GrabSite extends Thread {
         try {
             url = new URL(theurl);
             setGrabSite(url, igsets);
+            System.out.println("URL: " + theurl);
         } catch (MalformedURLException ex) {
             Logger.getLogger(GrabSite.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GrabSite.class.getName()).log(Level.SEVERE, null, "\n" + theurl + "\n");
         }
     }
 
@@ -65,7 +67,7 @@ public class GrabSite extends Thread {
     }
 
     @Override
-    public void start() {
+    public void run() {
         try {
             process = Runtime.getRuntime().exec("grab-site " + url.toExternalForm() + " " + this.igsets);
             pid = getPid(process);
@@ -84,7 +86,7 @@ public class GrabSite extends Thread {
         running = false;
     }
 
-    private int getPid(Process process) {
+    public int getPid(Process process) {
         try {
             Class<?> cProcessImpl = process.getClass();
             Field fPid = cProcessImpl.getDeclaredField("pid");
