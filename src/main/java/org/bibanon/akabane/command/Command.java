@@ -6,6 +6,7 @@
 package org.bibanon.akabane.command;
 
 import java.util.HashMap;
+import org.pircbotx.hooks.events.MessageEvent;
 
 /**
  *
@@ -25,7 +26,7 @@ public abstract class Command {
         commandArgsNames = argsNames;
     }
 
-    public void process(String[] message) {
+    public void process(String[] message, MessageEvent event) {
     }
 
 }

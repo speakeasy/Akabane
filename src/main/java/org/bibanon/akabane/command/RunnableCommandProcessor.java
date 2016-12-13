@@ -6,7 +6,6 @@
 package org.bibanon.akabane.command;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bibanon.akabane.command.users.Users;
@@ -61,11 +60,25 @@ public class RunnableCommandProcessor implements Runnable {
     public void process(MessageEvent event) {
         this.users = users;
         String[] message = event.getMessage().split(" ");
+        // CMD: Check if is user.
+        if(!users.isUser(event.getUser().getNick())) {
+            return;
+        }
         for (Command c : commands.commands) {
             if (message[0] == c.commandString) {
-
+                // CMD: Permissions.
+                if(hasPermissions(event, c)) {
+                    c.process(message, event);
+                }
             }
         }
+    }
+    
+    public boolean hasPermissions(MessageEvent event, Command command) {
+        if(users.hasPermission(event.getUser().getNick(), command.commandString)) {
+            return true;
+        }
+        return false;
     }
 
     public void addEvent(MessageEvent event) throws InterruptedException {

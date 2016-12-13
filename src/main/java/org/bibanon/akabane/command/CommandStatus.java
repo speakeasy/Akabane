@@ -6,6 +6,7 @@
 package org.bibanon.akabane.command;
 
 import java.util.HashMap;
+import org.pircbotx.hooks.events.MessageEvent;
 
 /**
  *
@@ -15,6 +16,11 @@ public class CommandStatus extends Command {
 
     public CommandStatus(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
         super(cs, cc, argnum, argsNames);
+    }
+
+    @Override
+    public void process(String[] message, MessageEvent event) {
+        ;
     }
 
 }

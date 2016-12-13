@@ -6,6 +6,7 @@
 package org.bibanon.akabane.command;
 
 import java.util.HashMap;
+import org.pircbotx.hooks.events.MessageEvent;
 
 /**
  *
@@ -18,7 +19,7 @@ public class CommandTime extends Command {
     }
 
     @Override
-    public void process(String[] message) {
+    public void process(String[] message, MessageEvent event) {
         ;
     }
 
