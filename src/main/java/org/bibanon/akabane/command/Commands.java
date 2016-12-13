@@ -6,6 +6,7 @@
 package org.bibanon.akabane.command;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
@@ -14,6 +15,17 @@ import java.util.ArrayList;
 public class Commands {
     public static ArrayList<Command> commands = new ArrayList<Command>();
     public Commands() {
-        ;
+        init();
+
+    }
+    
+    private void init() {
+        HashMap<String, Boolean> argsNames = new HashMap<String, Boolean>();
+        argsNames.put(".help", Boolean.FALSE); // help doesn't take args.
+        commands.add(new Command(".a", CommandGrab.class, argsNames.size(), argsNames));
+        argsNames = new HashMap<String, Boolean>();
+        //commands.add(new Command(".is", CommandIS.class));
+        //commands.add(new Command(".rr", CommandRR.class));
+        //commands.add(new Command(".time", CommandTime.class));
     }
 }

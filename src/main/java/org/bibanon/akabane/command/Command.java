@@ -5,6 +5,8 @@
  */
 package org.bibanon.akabane.command;
 
+import java.util.HashMap;
+
 /**
  *
  * @author speakeasy
@@ -12,8 +14,12 @@ package org.bibanon.akabane.command;
 public class Command {
     public String commandString;
     public Class commandClass;
-    public Command(String cs, Class cc) {
+    public int commandArgs;
+    public HashMap<String, Boolean> commandArgsNames;
+    public Command(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
         commandString = cs;
         commandClass = cc;
+        commandArgs = argnum;
+        commandArgsNames = argsNames;
     }
 }
