@@ -12,11 +12,14 @@ import java.util.HashMap;
  * @author speakeasy
  */
 public class CommandIS extends Command {
-    
+
     public CommandIS(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
         super(cs, cc, argnum, argsNames);
     }
-    
 
-    
+    @Override
+    public void process(String[] message) {
+        ;
+    }
+
 }

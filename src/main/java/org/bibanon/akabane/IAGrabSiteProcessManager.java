@@ -93,7 +93,7 @@ public class IAGrabSiteProcessManager extends Thread {
     @Override
     public void run() {
         running = true;
-        
+
         while (running) {
             try {
                 Thread.sleep(500);
@@ -105,8 +105,8 @@ public class IAGrabSiteProcessManager extends Thread {
                     }
                 }
                 int j = grabsiteskeys.size();
-                for(int i = 0; i < j; i++) {
-                    if(!grabsites.containsKey(grabsiteskeys.get(i))) {
+                for (int i = 0; i < j; i++) {
+                    if (!grabsites.containsKey(grabsiteskeys.get(i))) {
                         grabsiteskeys.remove(i);
                         j--;
                         i--;

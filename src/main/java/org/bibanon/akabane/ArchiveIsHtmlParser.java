@@ -66,7 +66,7 @@ public class ArchiveIsHtmlParser {
                 responseStatus = postresponse.getStatusLine().getReasonPhrase();
                 HttpEntity entity2 = postresponse.getEntity();
                 postRespHeaders = postresponse.getHeaders("Location");
-                
+
                 EntityUtils.consume(entity2);
             }
         } catch (UnsupportedEncodingException ex) {

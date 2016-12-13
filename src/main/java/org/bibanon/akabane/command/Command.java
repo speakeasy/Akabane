@@ -11,15 +11,21 @@ import java.util.HashMap;
  *
  * @author speakeasy
  */
-public class Command {
+public abstract class Command {
+
     public String commandString;
     public Class commandClass;
     public int commandArgs;
     public HashMap<String, Boolean> commandArgsNames;
+
     public Command(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
         commandString = cs;
         commandClass = cc;
         commandArgs = argnum;
         commandArgsNames = argsNames;
     }
+
+    public void process(String[] message) {
+    }
+
 }

@@ -17,12 +17,13 @@ public class Users {
 
     public void removeUser(String suser) {
         for (User u : Users) {
-            if(u.name == suser) {
+            if (u.name == suser) {
                 Users.remove(u);
                 return;
             }
         }
     }
+
     public void addUser(String suser, Rank rank) {
 
         for (User u : Users) {
@@ -39,8 +40,8 @@ public class Users {
     }
 
     public boolean isUser(String user) {
-        for( User u: Users) {
-            if(u.name == user) {
+        for (User u : Users) {
+            if (u.name == user) {
                 return true;
             }
         }
@@ -68,10 +69,10 @@ public class Users {
         }
         return getUser(user).rank;
     }
-    
+
     public User getUser(String name) {
-        for(User u : Users) {
-            if(u.name == name) {
+        for (User u : Users) {
+            if (u.name == name) {
                 return u;
             }
         }

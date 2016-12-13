@@ -61,7 +61,7 @@ public class GrabSite extends Thread {
     public void setMetadata(String data) {
         metadata = new IAMetadata(url, data);
     }
-    
+
     public IAMetadata getMetadata() {
         return metadata;
     }
@@ -75,7 +75,7 @@ public class GrabSite extends Thread {
             while (process.isAlive() && running) {
                 Thread.sleep(200);
             }
-            if(running == false) {
+            if (running == false) {
                 process.destroy();
             }
         } catch (IOException ex) {
@@ -98,19 +98,19 @@ public class GrabSite extends Thread {
             return -1;
         }
     }
-    
+
     public int getPid() {
         return pid;
     }
-    
+
     public Process getProcess() {
         return process;
     }
-    
+
     public boolean isRunning() {
         return running;
     }
-    
+
     public void stopRunning() {
         running = false;
     }

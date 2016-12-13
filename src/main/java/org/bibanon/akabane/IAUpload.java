@@ -18,10 +18,9 @@ public class IAUpload extends Thread {
     private URL url;
     private IAMetadata metadata;
     private boolean running;
-    
+
     public IAUpload() {
         ;
     }
-    
-    
+
 }

@@ -17,5 +17,9 @@ public class CommandGrab extends Command {
         super(cs, cc, argnum, argsNames);
     }
 
-    
+    @Override
+    public void process(String[] message) {
+        ;
+    }
+
 }

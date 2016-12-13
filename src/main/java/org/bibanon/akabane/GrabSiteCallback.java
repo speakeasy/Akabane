@@ -10,5 +10,6 @@ package org.bibanon.akabane;
  * @author speakeasy
  */
 public interface GrabSiteCallback {
+
     void Callback(Integer PID);
 }

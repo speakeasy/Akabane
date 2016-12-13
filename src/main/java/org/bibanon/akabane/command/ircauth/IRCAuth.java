@@ -10,5 +10,6 @@ package org.bibanon.akabane.command.ircauth;
  * @author speakeasy
  */
 public class IRCAuth {
+
     public String password;
 }
