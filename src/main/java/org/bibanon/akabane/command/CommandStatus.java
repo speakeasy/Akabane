@@ -24,6 +24,7 @@ public class CommandStatus extends Command {
 
     @Override
     public void process(String[] message, MessageEvent event) {
+
         this.event = event;
         if (message.length > 1) {
             Method method;
@@ -50,12 +51,17 @@ public class CommandStatus extends Command {
                         }
                     }
                 }
+                execute();
             }
         } else {
             this.event.respond("HELP: Usage: [not implemented]");
             this.event = null;
             return;
         }
+    }
+
+    private void execute() {
+
     }
 
 }

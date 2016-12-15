@@ -51,12 +51,42 @@ public class CommandGrab extends Command {
                         }
                     }
                 }
+                execute();
             }
         } else {
             this.event.respond("HELP: Usage: [not implemented]");
             this.event = null;
             return;
         }
+    }
+
+    private void execute() {
+
+    }
+
+    public void grab(String url) {
+
+    }
+
+    public void help() {
+
+    }
+
+    public void igsets(String igsets) {
+
+    }
+
+    public void meta(String meta) {
+
+    }
+
+    private boolean contains(String[] message, String contain) {
+        for (String s : message) {
+            if (s == contain) {
+                return true;
+            }
+        }
+        return false;
     }
     /*
         public void grab(String[] cmd, MessageEvent event) {

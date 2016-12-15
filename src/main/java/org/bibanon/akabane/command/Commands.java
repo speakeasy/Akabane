@@ -33,8 +33,10 @@ public class Commands {
 
         // CMD: .a
         argsNames.put("help", Boolean.FALSE); // help doesn't take args.
-        argsNames.put("grab", Boolean.TRUE); // grab takes url to grab.
+
+        argsNames.put("igsets", Boolean.TRUE); // igsets global,forum,...
         argsNames.put("meta", Boolean.TRUE); // meta takes ; separated values. warcarchives;website;...
+        argsNames.put("grab", Boolean.TRUE); // grab takes url to grab.
         commands.add(new CommandGrab(".a", CommandGrab.class, argsNames.size(), argsNames));
 
         argsNames = new HashMap<String, Boolean>();

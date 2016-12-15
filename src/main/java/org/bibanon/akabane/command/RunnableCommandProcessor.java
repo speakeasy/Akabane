@@ -122,7 +122,7 @@ public class RunnableCommandProcessor implements Runnable {
         addMessages.add(event);
         mlock = false;
     }
-    
+
     public void die() {
         running = false;
     }
