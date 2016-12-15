@@ -8,6 +8,7 @@ package org.bibanon.akabane.command;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bibanon.akabane.AkabaneInstance;
 import org.bibanon.akabane.command.users.Users;
 import org.pircbotx.hooks.events.MessageEvent;
 
@@ -30,9 +31,14 @@ public class RunnableCommandProcessor implements Runnable {
 
     @Override
     public void run() {
+        try {
+            Thread.sleep(7000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(RunnableCommandProcessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
         while (running) {
             try {
-                Thread.sleep(11);
+                Thread.sleep(110);
                 synchronized(addMessages){
                     for (MessageEvent ev : addMessages) {
                         messages.add(addMessages.remove(addMessages.indexOf(ev)));
@@ -45,6 +51,9 @@ public class RunnableCommandProcessor implements Runnable {
                 }
             } catch (InterruptedException ex) {
                 Logger.getLogger(RunnableCommandProcessor.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(!AkabaneInstance.bot.isConnected()) {
+                die();
             }
         }
     }

@@ -20,7 +20,7 @@ import org.pircbotx.hooks.events.PartEvent;
 
 public class AkabaneInstance extends ListenerAdapter {
 
-    static PircBotX bot;
+    public static PircBotX bot;
     static ArchiveIsHtmlParser archiveis = new ArchiveIsHtmlParser();
     static IAGrabSiteProcessManager iagrabsite = new IAGrabSiteProcessManager();
 
