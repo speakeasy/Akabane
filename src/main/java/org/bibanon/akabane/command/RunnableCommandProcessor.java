@@ -21,9 +21,8 @@ public class RunnableCommandProcessor implements Runnable {
     public static Users users;
     public static final Commands commands = new Commands();
     private static ArrayList<MessageEvent> messages = new ArrayList<MessageEvent>();
-    public static ArrayList<MessageEvent> addMessages = new ArrayList<MessageEvent>();
+    private ArrayList<MessageEvent> addMessages = new ArrayList<MessageEvent>();
     private static boolean running = true;
-    private static boolean mlock = false;
 
     public RunnableCommandProcessor() {
         processor = new RunnableCommandProcessor();
@@ -34,10 +33,7 @@ public class RunnableCommandProcessor implements Runnable {
         while (running) {
             try {
                 Thread.sleep(11);
-                while (mlock) {
-                    Thread.sleep(2);
-                }
-                if (!mlock) {
+                synchronized(addMessages){
                     for (MessageEvent ev : addMessages) {
                         messages.add(addMessages.remove(addMessages.indexOf(ev)));
                     }
@@ -118,9 +114,9 @@ public class RunnableCommandProcessor implements Runnable {
     }
 
     public void addEvent(MessageEvent event) throws InterruptedException {
-        mlock = true;
+        synchronized(addMessages) {
         addMessages.add(event);
-        mlock = false;
+        }
     }
 
     public void die() {
