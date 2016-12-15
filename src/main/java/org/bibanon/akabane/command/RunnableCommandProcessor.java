@@ -105,7 +105,6 @@ public class RunnableCommandProcessor implements Runnable {
                             return;
                         }
                     }
-
                 }
             }
         }
@@ -122,5 +121,9 @@ public class RunnableCommandProcessor implements Runnable {
         mlock = true;
         addMessages.add(event);
         mlock = false;
+    }
+    
+    public void die() {
+        running = false;
     }
 }
