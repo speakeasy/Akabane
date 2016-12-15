@@ -68,7 +68,44 @@ public class RunnableCommandProcessor implements Runnable {
             if (message[0] == c.commandString) {
                 // CMD: Permissions.
                 if(hasPermissions(event, c)) {
-                    c.process(message, event);
+                    switch(c.commandString) {
+                        case ".status" : {
+                            CommandStatus cc = (CommandStatus)c;
+                            cc.process(message, event);
+                            return;
+                        }
+                        case ".a" : {
+                            CommandGrab cc = (CommandGrab)c;
+                            cc.process(message, event);
+                            return;
+                        }
+                        case ".set" : {
+                            CommandSet cc = (CommandSet)c;
+                            cc.process(message, event);
+                            return;
+                        }
+                        case ".is" : {
+                            CommandIS cc = (CommandIS)c;
+                            cc.process(message, event);
+                            return;
+                        }
+                        case ".rr" : {
+                            CommandRR cc = (CommandRR)c;
+                            cc.process(message, event);
+                            return;
+                        }
+                        case ".time" : {
+                            CommandTime cc = (CommandTime)c;
+                            cc.process(message, event);
+                            return;
+                        }
+                        default : {
+                            Command cc = c;
+                            cc.process(message, event);
+                            return;
+                        }
+                    }
+                    
                 }
             }
         }
