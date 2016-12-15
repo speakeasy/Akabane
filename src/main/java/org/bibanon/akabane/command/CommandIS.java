@@ -67,7 +67,7 @@ public class CommandIS extends Command {
 
     private void execute(MessageEvent event) {
         archiveis.init();
-        archiveis.submitURL(url);
+        event.respond("URL Found: " + archiveis.submitURL(url));
         url = null;
     }
 
