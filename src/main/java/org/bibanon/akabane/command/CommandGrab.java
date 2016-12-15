@@ -25,6 +25,7 @@ public class CommandGrab extends Command {
     @Override
     public void process(String[] message, MessageEvent event) {
 
+        this.event = event;
         if (message.length > 1) {
             Method method;
             for (int i = 0; i < message.length; i++) {
@@ -52,8 +53,63 @@ public class CommandGrab extends Command {
                 }
             }
         } else {
-            event.respond("HELP: Usage: [not implemented]");
+            this.event.respond("HELP: Usage: [not implemented]");
+            this.event = null;
+            return;
         }
     }
+/*
+        public void grab(String[] cmd, MessageEvent event) {
+        System.out.println("Grab...");
+        igsets = "";
+        meta = "";
+        if (cmd.length > 1) {
+            if (cmd.length == 3 || cmd.length == 5 || cmd[0] == "help") {
+                for (i = 0; i < cmd.length; i++) {
+                    switch (cmd[i]) {
+                        case "set": {
+                            i++;
+                            igsets = cmd[i];
+                            break;
+                        }
+                        case "meta": {
+                            i++;
+                            meta = cmd[i];
+                            break;
+                        }
+                        case "help": {
+                            event.respond("Usage: \".a [<set> <igsetsoptions>] [<meta> <metadata[;tags[;separated[;...]]]>] <url>\"");
+                            return;
+                        }
+                        default: {
+                            break;
+                        }
+                    }
+                }
 
+            } else {
+                event.respond("Usage: \".a [<set> <igsetsoptions>] [<meta> <metadata[;tags[;separated[;...]]]>] <url>\"");
+                return;
+            }
+        } else if (cmd[0] != null) {
+            if (cmd[0] == "help") {
+                event.respond("Usage: \".grab [<set> <igsetsoptions>] [<meta> <metadata[;tags[;separated[;...]]]>] <url>\"");
+                return;
+            } else {
+                url = cmd[0];
+            }
+        } else {
+            event.respond("Usage: \".grab [<set> <igsetsoptions>] [<meta> <metadata[;tags[;separated[;...]]]>] <url>\"");
+            url = "";
+            return;
+        }
+        if (url != "" && url != "help") {
+            event.respond("Grab-Site started: PID: " + iagrabsite.addGrab(url, igsets, meta));
+        } else {
+            event.respond("Usage: \".grab [<set> <igsetsoptions>] [<meta> <metadata[;tags[;separated[;...]]]>] <url>\"");
+        }
+        igsets = "";
+        meta = "";
+        url = "";
+    }*/
 }
