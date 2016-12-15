@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bibanon.akabane.ArchiveIsHtmlParser;
 import org.pircbotx.hooks.events.MessageEvent;
 
 /**
@@ -17,6 +18,9 @@ import org.pircbotx.hooks.events.MessageEvent;
  * @author speakeasy
  */
 public class CommandIS extends Command {
+
+    private static ArchiveIsHtmlParser archiveis = new ArchiveIsHtmlParser();
+    private static String url;
 
     public CommandIS(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
         super(cs, cc, argnum, argsNames);
@@ -57,8 +61,14 @@ public class CommandIS extends Command {
         }
     }
 
-    private void execute(MessageEvent event) {
+    public void url(String url) {
+        this.url = url;
+    }
 
+    private void execute(MessageEvent event) {
+        archiveis.init();
+        archiveis.submitURL(url);
+        url = null;
     }
 
 }
