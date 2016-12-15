@@ -100,7 +100,7 @@ public class RunnableCommandProcessor implements Runnable {
                             return;
                         }
                         default : {
-                            Command cc = c;
+                            CommandHelp cc = (CommandHelp)c;
                             cc.process(message, event);
                             return;
                         }
