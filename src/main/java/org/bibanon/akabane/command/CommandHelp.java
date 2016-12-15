@@ -20,9 +20,6 @@ public class CommandHelp extends Command {
 
     @Override
     public void process(String[] message, MessageEvent event) {
-        this.event = event;
-        this.event.respond("Usage: Commands: <.a|.set|.status|.is|.rr|.time> <options> <>=required. []=optional.");
-        this.event = null;
-        return;
+        event.respond("Usage: Commands: <.a|.set|.status|.is|.rr|.time> <options> <>=required. []=optional.");
     }
 }

@@ -24,8 +24,6 @@ public class CommandTime extends Command {
 
     @Override
     public void process(String[] message, MessageEvent event) {
-
-        this.event = event;
         if (message.length > 1) {
             Method method;
             for (int i = 0; i < message.length; i++) {
@@ -51,16 +49,15 @@ public class CommandTime extends Command {
                         }
                     }
                 }
-                execute();
+                execute(event);
             }
         } else {
-            this.event.respond("HELP: Usage: [not implemented]");
-            this.event = null;
+            event.respond("HELP: Usage: [not implemented]");
             return;
         }
     }
 
-    private void execute() {
+    private void execute(MessageEvent event) {
 
     }
 

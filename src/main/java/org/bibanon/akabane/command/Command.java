@@ -18,7 +18,6 @@ public abstract class Command {
     public Class commandClass;
     public int commandArgs;
     public HashMap<String, Boolean> commandArgsNames;
-    public MessageEvent event;
 
     public Command(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
         commandString = cs;
