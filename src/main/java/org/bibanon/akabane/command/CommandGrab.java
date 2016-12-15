@@ -58,7 +58,7 @@ public class CommandGrab extends Command {
             return;
         }
     }
-/*
+    /*
         public void grab(String[] cmd, MessageEvent event) {
         System.out.println("Grab...");
         igsets = "";

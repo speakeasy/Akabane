@@ -22,9 +22,9 @@ public class CommandTime extends Command {
         super(cs, cc, argnum, argsNames);
     }
 
-        @Override
+    @Override
     public void process(String[] message, MessageEvent event) {
-this.event = event;
+        this.event = event;
         if (message.length > 1) {
             Method method;
             for (int i = 0; i < message.length; i++) {

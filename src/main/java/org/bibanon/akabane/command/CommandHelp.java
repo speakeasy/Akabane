@@ -13,11 +13,11 @@ import org.pircbotx.hooks.events.MessageEvent;
  * @author speakeasy
  */
 public class CommandHelp extends Command {
-    
+
     public CommandHelp(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
         super(cs, cc, argnum, argsNames);
     }
-    
+
     @Override
     public void process(String[] message, MessageEvent event) {
         this.event = event;

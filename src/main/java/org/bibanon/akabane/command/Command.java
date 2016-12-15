@@ -28,7 +28,7 @@ public abstract class Command {
     }
 
     public void process(String[] message, MessageEvent event) {
-        
+
     }
 
 }

@@ -61,58 +61,58 @@ public class RunnableCommandProcessor implements Runnable {
         this.users = users;
         String[] message = event.getMessage().split(" ");
         // CMD: Check if is user.
-        if(!users.isUser(event.getUser().getNick())) {
+        if (!users.isUser(event.getUser().getNick())) {
             return;
         }
         for (Command c : commands.commands) {
             if (message[0] == c.commandString) {
                 // CMD: Permissions.
-                if(hasPermissions(event, c)) {
-                    switch(c.commandString) {
-                        case ".status" : {
-                            CommandStatus cc = (CommandStatus)c;
+                if (hasPermissions(event, c)) {
+                    switch (c.commandString) {
+                        case ".status": {
+                            CommandStatus cc = (CommandStatus) c;
                             cc.process(message, event);
                             return;
                         }
-                        case ".a" : {
-                            CommandGrab cc = (CommandGrab)c;
+                        case ".a": {
+                            CommandGrab cc = (CommandGrab) c;
                             cc.process(message, event);
                             return;
                         }
-                        case ".set" : {
-                            CommandSet cc = (CommandSet)c;
+                        case ".set": {
+                            CommandSet cc = (CommandSet) c;
                             cc.process(message, event);
                             return;
                         }
-                        case ".is" : {
-                            CommandIS cc = (CommandIS)c;
+                        case ".is": {
+                            CommandIS cc = (CommandIS) c;
                             cc.process(message, event);
                             return;
                         }
-                        case ".rr" : {
-                            CommandRR cc = (CommandRR)c;
+                        case ".rr": {
+                            CommandRR cc = (CommandRR) c;
                             cc.process(message, event);
                             return;
                         }
-                        case ".time" : {
-                            CommandTime cc = (CommandTime)c;
+                        case ".time": {
+                            CommandTime cc = (CommandTime) c;
                             cc.process(message, event);
                             return;
                         }
-                        default : {
-                            CommandHelp cc = (CommandHelp)c;
+                        default: {
+                            CommandHelp cc = (CommandHelp) c;
                             cc.process(message, event);
                             return;
                         }
                     }
-                    
+
                 }
             }
         }
     }
-    
+
     public boolean hasPermissions(MessageEvent event, Command command) {
-        if(users.hasPermission(event.getUser().getNick(), command.commandString)) {
+        if (users.hasPermission(event.getUser().getNick(), command.commandString)) {
             return true;
         }
         return false;
