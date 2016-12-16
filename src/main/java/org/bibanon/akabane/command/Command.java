@@ -6,6 +6,7 @@
 package org.bibanon.akabane.command;
 
 import java.util.HashMap;
+import org.bibanon.akabane.command.archival.ProcessManagerGrabSite;
 import org.pircbotx.hooks.events.MessageEvent;
 
 /**
@@ -18,6 +19,7 @@ public abstract class Command {
     public Class commandClass;
     public int commandArgs;
     public HashMap<String, Boolean> commandArgsNames;
+    public static ProcessManagerGrabSite grabManager = new ProcessManagerGrabSite();
 
     public Command(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
         commandString = cs;

@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bibanon.akabane.command.archival.GrabSite;
-import org.bibanon.akabane.command.archival.ProcessManagerGrabSite;
 import org.pircbotx.hooks.events.MessageEvent;
 
 /**
@@ -19,8 +18,6 @@ import org.pircbotx.hooks.events.MessageEvent;
  * @author speakeasy
  */
 public class CommandGrab extends Command {
-    
-    public static ProcessManagerGrabSite grabManager = new ProcessManagerGrabSite();
 
     GrabSite grabsite;
     boolean help = false;
@@ -73,8 +70,10 @@ public class CommandGrab extends Command {
             help = false;
             return;
         }
-        // TODO
-        grabManager.addGrab(grabsite);
+        
+        synchronized (grabManager) {
+            grabManager.addGrab(grabsite);
+        }
         grabsite = null;
     }
 
