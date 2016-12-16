@@ -18,7 +18,9 @@ import org.pircbotx.hooks.events.MessageEvent;
  * @author speakeasy
  */
 public class CommandGrab extends Command {
+
     GrabSite grabsite;
+    boolean help = false;
 
     public CommandGrab(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
         super(cs, cc, argnum, argsNames);
@@ -62,6 +64,14 @@ public class CommandGrab extends Command {
 
     private void execute(MessageEvent event) {
 
+        if (help) {
+            event.respond("Usage: .a <grab http://example.com> [igsets list,of,igsets] [meta wararchives;metadat;for;ia]");
+            grabsite = null;
+            return;
+        }
+        // TODO
+        
+        grabsite = null;
     }
 
     public void grab(String url) {
@@ -69,7 +79,7 @@ public class CommandGrab extends Command {
     }
 
     public void help() {
-
+        help = true;
     }
 
     public void igsets(String igsets) {
