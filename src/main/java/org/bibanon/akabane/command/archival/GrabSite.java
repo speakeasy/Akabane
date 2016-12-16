@@ -31,7 +31,9 @@ public class GrabSite implements Runnable {
 
     public void setGrabSite(String theurl, String igsets) {
         try {
-            url = new URL(theurl);
+            if (theurl != "") {
+                url = new URL(theurl);
+            }
             setGrabSite(url, igsets);
             System.out.println("URL: " + theurl);
         } catch (MalformedURLException ex) {

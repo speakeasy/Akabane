@@ -28,6 +28,7 @@ public class CommandGrab extends Command {
     public void process(String[] message, MessageEvent event) {
         if (message.length > 1) {
             Method method;
+            grabsite = new GrabSite();
             for (int i = 0; i < message.length; i++) {
                 for (String arg : commandArgsNames.keySet()) {
                     if (message[i] == arg) {
@@ -64,7 +65,7 @@ public class CommandGrab extends Command {
     }
 
     public void grab(String url) {
-
+        grabsite.setGrabSite(url);
     }
 
     public void help() {
@@ -72,7 +73,7 @@ public class CommandGrab extends Command {
     }
 
     public void igsets(String igsets) {
-
+        grabsite.setGrabSite("", igsets);
     }
 
     public void meta(String meta) {
