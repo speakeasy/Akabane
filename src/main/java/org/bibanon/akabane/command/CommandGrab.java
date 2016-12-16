@@ -77,7 +77,7 @@ public class CommandGrab extends Command {
     }
 
     public void meta(String meta) {
-
+        grabsite.setMetadata(meta);
     }
 
     private boolean contains(String[] message, String contain) {
