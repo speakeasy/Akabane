@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bibanon.akabane.command.archival.GrabSite;
 import org.pircbotx.hooks.events.MessageEvent;
 
 /**
@@ -17,6 +18,7 @@ import org.pircbotx.hooks.events.MessageEvent;
  * @author speakeasy
  */
 public class CommandGrab extends Command {
+    GrabSite grabsite;
 
     public CommandGrab(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
         super(cs, cc, argnum, argsNames);

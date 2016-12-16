@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.bibanon.akabane.ArchiveIsHtmlParser;
+import org.bibanon.akabane.command.archival.ArchiveIsHtmlParser;
 import org.pircbotx.hooks.events.MessageEvent;
 
 /**

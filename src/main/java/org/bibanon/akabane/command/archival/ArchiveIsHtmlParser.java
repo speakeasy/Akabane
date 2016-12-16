@@ -1,4 +1,4 @@
-package org.bibanon.akabane;
+package org.bibanon.akabane.command.archival;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

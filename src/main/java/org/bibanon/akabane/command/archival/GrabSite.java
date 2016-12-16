@@ -1,4 +1,4 @@
-package org.bibanon.akabane;
+package org.bibanon.akabane.command.archival;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -7,7 +7,7 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class GrabSite extends Thread {
+public class GrabSite implements Runnable {
 
     private String igsets = "--igsets=global,";
     private Process process;
