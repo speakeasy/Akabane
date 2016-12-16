@@ -29,7 +29,7 @@ public class CommandTime extends Command {
 
     @Override
     public void process(String[] message, MessageEvent event) {
-            execute(event);
+        execute(event);
     }
 
     private void execute(MessageEvent event) {

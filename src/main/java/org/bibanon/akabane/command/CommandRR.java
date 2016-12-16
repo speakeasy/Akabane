@@ -18,6 +18,7 @@ import org.pircbotx.hooks.events.MessageEvent;
  * @author speakeasy
  */
 public class CommandRR extends Command {
+
     Random random = new Random();
 
     public CommandRR(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
@@ -30,7 +31,7 @@ public class CommandRR extends Command {
     }
 
     private void execute(MessageEvent event) {
-        if(random.nextInt() % 6 == 0) {
+        if (random.nextInt() % 6 == 0) {
             event.respond("*bang*");
         } else {
             event.respond("*click*");

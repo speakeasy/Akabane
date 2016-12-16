@@ -118,4 +118,8 @@ public class GrabSite implements Runnable {
     public void stopRunning() {
         running = false;
     }
+
+    public String getURL() {
+        return url.toExternalForm();
+    }
 }

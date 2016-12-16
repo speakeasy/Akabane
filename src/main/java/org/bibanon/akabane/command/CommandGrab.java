@@ -70,7 +70,7 @@ public class CommandGrab extends Command {
             help = false;
             return;
         }
-        
+
         synchronized (grabManager) {
             grabManager.addGrab(grabsite);
         }

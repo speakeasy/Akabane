@@ -1,6 +1,5 @@
 package org.bibanon.akabane;
 
-
 import org.bibanon.akabane.command.users.Users;
 import java.io.File;
 import java.util.Random;
@@ -22,7 +21,6 @@ import org.pircbotx.hooks.events.PartEvent;
 public class AkabaneInstance extends ListenerAdapter {
 
     public static PircBotX bot;
-
 
     private static Random rand = new Random();
     private static Users users = new Users();

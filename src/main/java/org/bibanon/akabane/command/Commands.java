@@ -26,7 +26,6 @@ public class Commands {
         HashMap<String, Boolean> argsNames = new HashMap<String, Boolean>();
 
         // CMD: .status 
-        argsNames.put("list", Boolean.FALSE); // .status list, lists jobs
         commands.add(new CommandStatus(".status", CommandStatus.class, argsNames.size(), argsNames));
 
         argsNames = new HashMap<String, Boolean>();

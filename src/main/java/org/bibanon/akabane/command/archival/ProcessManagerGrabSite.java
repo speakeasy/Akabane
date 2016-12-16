@@ -70,21 +70,21 @@ public class ProcessManagerGrabSite implements Runnable {
             GrabSites.add(addgs);
         }
     }
-    
+
     public ArrayList<GrabSite> getFinished() {
-        synchronized(finishedGS) {
+        synchronized (finishedGS) {
             return (ArrayList<GrabSite>) finishedGS.clone();
         }
     }
-    
+
     public ArrayList<GrabSite> getRunning() {
-        synchronized(runningGS) {
+        synchronized (runningGS) {
             return (ArrayList<GrabSite>) runningGS.clone();
         }
     }
-    
+
     public ArrayList<GrabSite> getWaiting() {
-        synchronized(GrabSites) {
+        synchronized (GrabSites) {
             return (ArrayList<GrabSite>) GrabSites.clone();
         }
     }
