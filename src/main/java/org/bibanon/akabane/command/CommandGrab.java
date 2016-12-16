@@ -67,6 +67,7 @@ public class CommandGrab extends Command {
         if (help) {
             event.respond("Usage: .a <grab http://example.com> [igsets list,of,igsets] [meta wararchives;metadat;for;ia]");
             grabsite = null;
+            help = false;
             return;
         }
         // TODO
