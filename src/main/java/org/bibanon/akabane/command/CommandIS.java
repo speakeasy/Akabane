@@ -24,6 +24,7 @@ public class CommandIS extends Command {
 
     public CommandIS(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
         super(cs, cc, argnum, argsNames);
+        archiveis.init();
     }
 
     @Override
@@ -66,7 +67,6 @@ public class CommandIS extends Command {
     }
 
     private void execute(MessageEvent event) {
-        archiveis.init();
         event.respond("URL Found: " + archiveis.submitURL(url));
         url = null;
     }
