@@ -47,7 +47,7 @@ public class CommandStatus extends Command {
                 i++;
             }
         }
-        while(i>=0) {
+        while (i >= 0) {
             event.respond(buildList.get(i));
             i--;
         }
