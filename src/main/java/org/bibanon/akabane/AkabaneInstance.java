@@ -1,6 +1,6 @@
 package org.bibanon.akabane;
 
-import org.bibanon.akabane.command.archival.IAGrabSiteProcessManager;
+
 import org.bibanon.akabane.command.users.Users;
 import java.io.File;
 import java.util.Random;
@@ -23,7 +23,6 @@ public class AkabaneInstance extends ListenerAdapter {
 
     public static PircBotX bot;
 
-    static IAGrabSiteProcessManager iagrabsite = new IAGrabSiteProcessManager();
 
     private static Random rand = new Random();
     private static Users users = new Users();
@@ -62,8 +61,6 @@ public class AkabaneInstance extends ListenerAdapter {
     public void init(String[] args) throws Exception {
         System.out.println("Starting...");
 
-        iagrabsite = new IAGrabSiteProcessManager();
-        iagrabsite.start();
         System.out.println("Loading Configuration...");
         //Loading YAML NickServ password
         YAMLAuth yauth = new YAMLAuth();
