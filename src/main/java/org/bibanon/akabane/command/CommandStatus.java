@@ -58,7 +58,7 @@ public class CommandStatus extends Command {
     }
 
     private void execute(MessageEvent event) {
-
+        ;
     }
 
 }

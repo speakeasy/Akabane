@@ -20,7 +20,7 @@ import org.pircbotx.hooks.events.MessageEvent;
  */
 public class CommandGrab extends Command {
     
-    ProcessManagerGrabSite grabManager = new ProcessManagerGrabSite();
+    public static ProcessManagerGrabSite grabManager = new ProcessManagerGrabSite();
 
     GrabSite grabsite;
     boolean help = false;

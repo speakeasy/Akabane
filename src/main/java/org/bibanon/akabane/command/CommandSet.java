@@ -58,7 +58,7 @@ public class CommandSet extends Command {
     }
 
     private void execute(MessageEvent event) {
-
+        ;
     }
 
 }
