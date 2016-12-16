@@ -61,7 +61,9 @@ public class GrabSite implements Runnable {
     }
 
     public void setMetadata(String data) {
-        metadata = new IAMetadata(url, data);
+        if (url != null && data != null) {
+            metadata = new IAMetadata(url, data);
+        }
     }
 
     public IAMetadata getMetadata() {
