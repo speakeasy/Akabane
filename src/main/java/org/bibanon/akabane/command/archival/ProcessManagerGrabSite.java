@@ -19,7 +19,7 @@ public class ProcessManagerGrabSite implements Runnable {
     private static ArrayList<GrabSite> GrabSites = new ArrayList<GrabSite>();
     private static ArrayList<GrabSite> runningGS = new ArrayList<GrabSite>();
     private static ArrayList<GrabSite> finishedGS = new ArrayList<GrabSite>();
-    private static HashMap<GrabSite,Thread> threads = new HashMap<GrabSite,Thread>();
+    private static HashMap<GrabSite, Thread> threads = new HashMap<GrabSite, Thread>();
     public static ProcessManagerGrabSite processManager;
     private boolean running;
 
@@ -40,11 +40,13 @@ public class ProcessManagerGrabSite implements Runnable {
             } catch (InterruptedException ex) {
                 Logger.getLogger(ProcessManagerGrabSite.class.getName()).log(Level.SEVERE, null, ex);
             }
-            for(GrabSite g: runningGS) {
-                if(!threads.get(g).isAlive()) {
+            for (GrabSite g : runningGS) {
+                if (!threads.get(g).isAlive()) {
                     threads.remove(g);
                     runningGS.remove(g);
-                    finishedGS.add(g);
+                    synchronized (finishedGS) {
+                        finishedGS.add(g);
+                    }
                 }
             }
             if (threads.size() < 4) {
@@ -66,6 +68,24 @@ public class ProcessManagerGrabSite implements Runnable {
     public void addGrab(GrabSite addgs) {
         synchronized (GrabSites) {
             GrabSites.add(addgs);
+        }
+    }
+    
+    public ArrayList<GrabSite> getFinished() {
+        synchronized(finishedGS) {
+            return (ArrayList<GrabSite>) finishedGS.clone();
+        }
+    }
+    
+    public ArrayList<GrabSite> getRunning() {
+        synchronized(runningGS) {
+            return (ArrayList<GrabSite>) runningGS.clone();
+        }
+    }
+    
+    public ArrayList<GrabSite> getWaiting() {
+        synchronized(GrabSites) {
+            return (ArrayList<GrabSite>) GrabSites.clone();
         }
     }
 
