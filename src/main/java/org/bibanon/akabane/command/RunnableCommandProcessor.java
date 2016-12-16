@@ -39,7 +39,7 @@ public class RunnableCommandProcessor implements Runnable {
         while (running) {
             try {
                 Thread.sleep(110);
-                synchronized(addMessages){
+                synchronized (addMessages) {
                     for (MessageEvent ev : addMessages) {
                         messages.add(addMessages.remove(addMessages.indexOf(ev)));
                     }
@@ -52,22 +52,28 @@ public class RunnableCommandProcessor implements Runnable {
             } catch (InterruptedException ex) {
                 Logger.getLogger(RunnableCommandProcessor.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(!AkabaneInstance.bot.isConnected()) {
+            if (!AkabaneInstance.bot.isConnected()) {
                 die();
             }
         }
     }
 
     public void updateUsers(Users users) {
-        this.users = users;
+        synchronized (this.users) {
+            this.users = users;
+        }
     }
 
     public void process(MessageEvent event) {
-        this.users = users;
+        synchronized (this.users) {
+            this.users = users;
+        }
         String[] message = event.getMessage().split(" ");
         // CMD: Check if is user.
-        if (!users.isUser(event.getUser().getNick())) {
-            return;
+        synchronized (this.users) {
+            if (!users.isUser(event.getUser().getNick())) {
+                return;
+            }
         }
         for (Command c : commands.commands) {
             if (message[0] == c.commandString) {
@@ -116,15 +122,17 @@ public class RunnableCommandProcessor implements Runnable {
     }
 
     public boolean hasPermissions(MessageEvent event, Command command) {
-        if (users.hasPermission(event.getUser().getNick(), command.commandString)) {
-            return true;
+        synchronized (this.users) {
+            if (users.hasPermission(event.getUser().getNick(), command.commandString)) {
+                return true;
+            }
         }
         return false;
     }
 
     public void addEvent(MessageEvent event) throws InterruptedException {
-        synchronized(addMessages) {
-        addMessages.add(event);
+        synchronized (addMessages) {
+            addMessages.add(event);
         }
     }
 
