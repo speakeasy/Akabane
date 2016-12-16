@@ -40,24 +40,26 @@ public class ProcessManagerGrabSite implements Runnable {
             } catch (InterruptedException ex) {
                 Logger.getLogger(ProcessManagerGrabSite.class.getName()).log(Level.SEVERE, null, ex);
             }
-            for (GrabSite g : runningGS) {
-                if (!threads.get(g).isAlive()) {
-                    threads.remove(g);
-                    runningGS.remove(g);
-                    synchronized (finishedGS) {
-                        finishedGS.add(g);
+            synchronized (runningGS) {
+                for (GrabSite g : runningGS) {
+                    if (!threads.get(g).isAlive()) {
+                        threads.remove(g);
+                        runningGS.remove(g);
+                        synchronized (finishedGS) {
+                            finishedGS.add(g);
+                        }
                     }
                 }
-            }
-            if (threads.size() < 4) {
-                synchronized (GrabSites) {
-                    for (GrabSite gs : GrabSites) {
-                        if (threads.size() < 4) {
-                            GrabSites.remove(gs);
-                            runningGS.add(gs);
-                            Thread thread = new Thread(gs);
-                            threads.put(gs, thread);
-                            thread.start();
+                if (threads.size() < 4) {
+                    synchronized (GrabSites) {
+                        for (GrabSite gs : GrabSites) {
+                            if (threads.size() < 4) {
+                                GrabSites.remove(gs);
+                                runningGS.add(gs);
+                                Thread thread = new Thread(gs);
+                                threads.put(gs, thread);
+                                thread.start();
+                            }
                         }
                     }
                 }
