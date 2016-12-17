@@ -24,7 +24,7 @@ public class CommandGrab extends Command {
     private boolean fmeta = false;
     private boolean help = false;
     
-    private HashMap<GrabSite, Thread> grabsites = new HashMap<GrabSite, Thread>();
+    public static HashMap<GrabSite, Thread> grabsites = new HashMap<GrabSite, Thread>();
     
     public CommandGrab(String cs) {
         super(cs);

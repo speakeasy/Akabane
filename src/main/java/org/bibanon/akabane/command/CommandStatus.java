@@ -6,6 +6,7 @@
 package org.bibanon.akabane.command;
 
 import java.util.ArrayList;
+import org.bibanon.akabane.command.archival.GrabSite;
 import org.pircbotx.hooks.events.MessageEvent;
 
 /**
@@ -27,6 +28,10 @@ public class CommandStatus extends Command {
         // TODO list job statuses.
         ArrayList<String> buildList = new ArrayList<String>();
         int i = 0;
+        for(GrabSite gs: CommandGrab.grabsites.keySet()) {
+            buildList.add("Job: " + gs.getURL() + " Status: " + gs.state.name());
+            i++;
+        }
         if (buildList.isEmpty()) {
             buildList.add("Status: No jobs are currently running.");
         }
@@ -36,7 +41,6 @@ public class CommandStatus extends Command {
         }
         i = 0;
         buildList = null;
-
     }
 
 }
