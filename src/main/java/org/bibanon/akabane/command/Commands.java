@@ -26,43 +26,42 @@ public class Commands {
         HashMap<String, Boolean> argsNames = new HashMap<String, Boolean>();
 
         // CMD: .status 
-        commands.add(new CommandStatus(".status", CommandStatus.class, argsNames.size(), argsNames));
+        commands.add(new CommandStatus(".status", argsNames.size(), argsNames));
 
         argsNames = new HashMap<String, Boolean>();
 
         // CMD: .a
         argsNames.put("help", Boolean.FALSE); // help doesn't take args.
-
         argsNames.put("igsets", Boolean.TRUE); // igsets global,forum,...
         argsNames.put("meta", Boolean.TRUE); // meta takes ; separated values. warcarchives;website;...
         argsNames.put("grab", Boolean.TRUE); // grab takes url to grab.
-        commands.add(new CommandGrab(".a", CommandGrab.class, argsNames.size(), argsNames));
+        commands.add(new CommandGrab(".a", argsNames.size(), argsNames));
 
         argsNames = new HashMap<String, Boolean>();
 
         // CMD: .set
         argsNames.put("job", Boolean.TRUE); // .set <<"job" <id#>> igsets,seperated,values>.
-        commands.add(new CommandSet(".set", CommandSet.class, argsNames.size(), argsNames));
+        commands.add(new CommandSet(".set", argsNames.size(), argsNames));
 
         argsNames = new HashMap<String, Boolean>();
 
         // CMD: .is
         argsNames.put("url", Boolean.TRUE); // url to archive.
-        commands.add(new CommandIS(".is", CommandIS.class, argsNames.size(), argsNames));
+        commands.add(new CommandIS(".is", argsNames.size(), argsNames));
 
         argsNames = new HashMap<String, Boolean>();
 
         // CMD: .rr
-        commands.add(new CommandRR(".rr", CommandRR.class, argsNames.size(), argsNames));
+        commands.add(new CommandRR(".rr", argsNames.size(), argsNames));
 
         argsNames = new HashMap<String, Boolean>();
 
         // CMD: .time
-        commands.add(new CommandTime(".time", CommandTime.class, argsNames.size(), argsNames));
+        commands.add(new CommandTime(".time", argsNames.size(), argsNames));
 
         argsNames = new HashMap<String, Boolean>();
 
         // CMD: .help
-        commands.add(new CommandTime(".help", CommandTime.class, argsNames.size(), argsNames));
+        commands.add(new CommandTime(".help", argsNames.size(), argsNames));
     }
 }

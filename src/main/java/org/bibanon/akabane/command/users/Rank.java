@@ -51,7 +51,7 @@ public enum Rank {
                         return true;
                     }
                     default: {
-                        return false;
+                        return true;
                     }
                 }
             }

@@ -17,8 +17,8 @@ public class CommandRR extends Command {
 
     Random random = new Random();
 
-    public CommandRR(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
-        super(cs, cc, argnum, argsNames);
+    public CommandRR(String cs, Integer argnum, HashMap<String, Boolean> argsNames) {
+        super(cs, argnum, argsNames);
     }
 
     @Override

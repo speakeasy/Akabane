@@ -5,10 +5,6 @@
  */
 package org.bibanon.akabane.command;
 
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.bibanon.akabane.AkabaneInstance;
 import org.bibanon.akabane.command.users.Users;
 import org.pircbotx.hooks.events.MessageEvent;
 
@@ -20,13 +16,13 @@ public class ProcessCommands {
 
     public static ProcessCommands processor;
     public static Users users;
-    public static final Commands commands = new Commands();
+    public static Commands commands = new Commands();
 
     public ProcessCommands() {
     }
 
     public void updateUsers(Users users) {
-        this.users = users;
+        ProcessCommands.users = users;
     }
 
     public void process(MessageEvent event) {

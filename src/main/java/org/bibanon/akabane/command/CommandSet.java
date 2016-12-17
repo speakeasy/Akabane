@@ -18,8 +18,8 @@ import org.pircbotx.hooks.events.MessageEvent;
  */
 public class CommandSet extends Command {
 
-    public CommandSet(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
-        super(cs, cc, argnum, argsNames);
+    public CommandSet(String cs, Integer argnum, HashMap<String, Boolean> argsNames) {
+        super(cs, argnum, argsNames);
     }
 
     @Override
@@ -32,19 +32,17 @@ public class CommandSet extends Command {
                         if (commandArgsNames.get(arg)) {
                             try {
                                 // command takes arg
-                                method = commandClass.getDeclaredMethod(arg, String.class);
+                                method = this.getClass().getDeclaredMethod(arg, String.class);
                                 i++;
-                                method.invoke(commandClass, message[i]);
+                                method.invoke(this.getClass(), message[i]);
                             } catch (NoSuchMethodException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (SecurityException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(CommandSet.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (IllegalAccessException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(CommandSet.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (IllegalArgumentException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(CommandSet.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (InvocationTargetException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(CommandSet.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                     }

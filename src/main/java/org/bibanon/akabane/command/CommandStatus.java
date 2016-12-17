@@ -16,8 +16,8 @@ import org.pircbotx.hooks.events.MessageEvent;
  */
 public class CommandStatus extends Command {
 
-    public CommandStatus(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
-        super(cs, cc, argnum, argsNames);
+    public CommandStatus(String cs, Integer argnum, HashMap<String, Boolean> argsNames) {
+        super(cs, argnum, argsNames);
     }
 
     @Override

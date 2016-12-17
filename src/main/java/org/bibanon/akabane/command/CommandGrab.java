@@ -22,8 +22,8 @@ public class CommandGrab extends Command {
     GrabSite grabsite;
     boolean help = false;
 
-    public CommandGrab(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
-        super(cs, cc, argnum, argsNames);
+    public CommandGrab(String cs, Integer argnum, HashMap<String, Boolean> argsNames) {
+        super(cs, argnum, argsNames);
     }
 
     @Override
@@ -37,7 +37,8 @@ public class CommandGrab extends Command {
                         if (commandArgsNames.get(arg)) {
                             try {
                                 // command takes arg
-                                method = commandClass.getDeclaredMethod(arg, String.class);
+                                
+                                method = this.getClass().getDeclaredMethod(arg, String.class);
                                 i++;
                                 method.invoke(this.getClass(), message[i]);
                             } catch (NoSuchMethodException ex) {
@@ -54,12 +55,11 @@ public class CommandGrab extends Command {
                         }
                     }
                 }
-                execute(event);
             }
         } else {
-            event.respond("HELP: Usage: [not implemented]");
-            return;
+            help = true;
         }
+        execute(event);
     }
 
     private void execute(MessageEvent event) {
@@ -70,14 +70,13 @@ public class CommandGrab extends Command {
             help = false;
             return;
         }
-
-        synchronized (grabManager) {
-            grabManager.addGrab(grabsite);
-        }
+        grabManager.addGrab(grabsite);
         grabsite = null;
     }
 
     public void grab(String url) {
+        help = false;
+        grabsite = new GrabSite();
         grabsite.setGrabSite(url);
     }
 

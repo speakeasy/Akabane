@@ -14,8 +14,8 @@ import org.pircbotx.hooks.events.MessageEvent;
  */
 public class CommandHelp extends Command {
 
-    public CommandHelp(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
-        super(cs, cc, argnum, argsNames);
+    public CommandHelp(String cs, Integer argnum, HashMap<String, Boolean> argsNames) {
+        super(cs, argnum, argsNames);
     }
 
     @Override

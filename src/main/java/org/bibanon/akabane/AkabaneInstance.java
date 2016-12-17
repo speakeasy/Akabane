@@ -46,14 +46,12 @@ public class AkabaneInstance extends ListenerAdapter {
 
     @Override
     public void onMessage(MessageEvent event) {
-        System.out.println(event.getMessage());
+        System.out.println(event.getMessage()); // DEBUG
 
-            updateUsers(event.getChannel());
-            processor.updateUsers(users);
-            for(org.bibanon.akabane.command.users.User us : ProcessCommands.users.Users) {
-                System.out.println("User: " + us.name + " Rank: " + us.rank.name());
-            }
-            processor.process(event);
+        updateUsers(event.getChannel());
+        processor.updateUsers(users);
+
+        processor.process(event);
     }
 
     public void init(String[] args) throws Exception {

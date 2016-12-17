@@ -22,8 +22,8 @@ public class CommandIS extends Command {
     private static ArchiveIsHtmlParser archiveis = new ArchiveIsHtmlParser();
     private static String url;
 
-    public CommandIS(String cs, Class cc, Integer argnum, HashMap<String, Boolean> argsNames) {
-        super(cs, cc, argnum, argsNames);
+    public CommandIS(String cs, Integer argnum, HashMap<String, Boolean> argsNames) {
+        super(cs, argnum, argsNames);
         archiveis.init();
     }
 
@@ -37,19 +37,17 @@ public class CommandIS extends Command {
                         if (commandArgsNames.get(arg)) {
                             try {
                                 // command takes arg
-                                method = commandClass.getDeclaredMethod(arg, String.class);
+                                method = this.getClass().getDeclaredMethod(arg, String.class);
                                 i++;
                                 method.invoke(this.getClass(), message[i]);
                             } catch (NoSuchMethodException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (SecurityException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(CommandIS.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (IllegalAccessException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(CommandIS.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (IllegalArgumentException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(CommandIS.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (InvocationTargetException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
+                                Logger.getLogger(CommandIS.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
                     }
