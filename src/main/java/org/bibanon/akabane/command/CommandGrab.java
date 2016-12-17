@@ -22,44 +22,12 @@ public class CommandGrab extends Command {
     GrabSite grabsite;
     boolean help = false;
 
-    public CommandGrab(String cs, Integer argnum, HashMap<String, Boolean> argsNames) {
-        super(cs, argnum, argsNames);
+    public CommandGrab(String cs) {
+        super(cs);
     }
 
     @Override
-    public void process(String[] message, MessageEvent event) {
-        if (message.length > 1) {
-            grabsite = new GrabSite();
-            for (int i = 0; i < message.length; i++) {
-                for (String arg : commandArgsNames.keySet()) {
-                    if (message[i] == arg && i < message.length + 1 &! commandArgsNames.containsKey(message[i+i])) {
-                        switch(arg) {
-                            case "grab" : {
-                                i++;
-                                grab(message[i]);
-                            }
-                            case "igsets" : {
-                                i++;
-                                igsets(message[i]);
-                            }
-                            case "meta": {
-                                i++;
-                                meta(message[i]);
-                            }
-                            default : {
-                                ;
-                            }
-                        }
-                    } else {
-                        if (message[i] == "help") {
-                            help = true;
-                        }
-                    }
-                }
-            }
-        } else {
-            help = true;
-        }
+    public void process(MessageEvent event) {
         execute(event);
     }
 

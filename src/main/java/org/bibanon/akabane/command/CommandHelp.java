@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package org.bibanon.akabane.command;
-
-import java.util.HashMap;
 import org.pircbotx.hooks.events.MessageEvent;
 
 /**
@@ -14,12 +12,12 @@ import org.pircbotx.hooks.events.MessageEvent;
  */
 public class CommandHelp extends Command {
 
-    public CommandHelp(String cs, Integer argnum, HashMap<String, Boolean> argsNames) {
-        super(cs, argnum, argsNames);
+    public CommandHelp(String cs) {
+        super(cs);
     }
 
     @Override
-    public void process(String[] message, MessageEvent event) {
+    public void process(MessageEvent event) {
         execute(event);
     }
     

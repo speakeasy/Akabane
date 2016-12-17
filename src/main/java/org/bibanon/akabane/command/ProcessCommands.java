@@ -38,49 +38,49 @@ public class ProcessCommands {
                     case ".status": {
                         CommandStatus cc = (CommandStatus) c;
                         if (hasPermissions(event, cc)) {
-                            cc.process(message, event);
+                            cc.process(event);
                             return;
                         }
                     }
                     case ".a": {
                         CommandGrab cc = (CommandGrab) c;
                         if (hasPermissions(event, cc)) {
-                            cc.process(message, event);
+                            cc.process(event);
                         }
                         return;
                     }
                     case ".set": {
                         CommandSet cc = (CommandSet) c;
                         if (hasPermissions(event, cc)) {
-                            cc.process(message, event);
+                            cc.process(event);
                         }
                         return;
                     }
                     case ".is": {
                         CommandIS cc = (CommandIS) c;
                         if (hasPermissions(event, cc)) {
-                            cc.process(message, event);
+                            cc.process(event);
                         }
                         return;
                     }
                     case ".rr": {
                         CommandRR cc = (CommandRR) c;
                         if (hasPermissions(event, cc)) {
-                            cc.process(message, event);
+                            cc.process(event);
                         }
                         return;
                     }
                     case ".time": {
                         CommandTime cc = (CommandTime) c;
                         if (hasPermissions(event, cc)) {
-                            cc.process(message, event);
+                            cc.process(event);
                         }
                         return;
                     }
                     case ".help": {
                         CommandHelp cc = (CommandHelp) c;
                         if (hasPermissions(event, cc)) {
-                            cc.process(message, event);
+                            cc.process(event);
                         }
                         return;
                     }

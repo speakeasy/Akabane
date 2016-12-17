@@ -16,12 +16,12 @@ import org.pircbotx.hooks.events.MessageEvent;
  */
 public class CommandStatus extends Command {
 
-    public CommandStatus(String cs, Integer argnum, HashMap<String, Boolean> argsNames) {
-        super(cs, argnum, argsNames);
+    public CommandStatus(String cs) {
+        super(cs);
     }
 
     @Override
-    public void process(String[] message, MessageEvent event) {
+    public void process(MessageEvent event) {
         execute(event);
     }
 

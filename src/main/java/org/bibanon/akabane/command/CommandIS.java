@@ -5,11 +5,7 @@
  */
 package org.bibanon.akabane.command;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bibanon.akabane.command.archival.ArchiveIsHtmlParser;
 import org.pircbotx.hooks.events.MessageEvent;
 
@@ -23,36 +19,13 @@ public class CommandIS extends Command {
     private static String url;
     private boolean help = false;
     
-    public CommandIS(String cs, Integer argnum, HashMap<String, Boolean> argsNames) {
-        super(cs, argnum, argsNames);
+    public CommandIS(String cs) {
+        super(cs);
         archiveis.init();
     }
 
     @Override
-    public void process(String[] message, MessageEvent event) {
-        if (message.length > 1) {
-            for (int i = 0; i < message.length; i++) {
-                for (String arg : commandArgsNames.keySet()) {
-                    if (message[i] == arg && i < message.length + 1 &! commandArgsNames.containsKey(message[i+i])) {
-                        switch(arg) {
-                            case "url" : {
-                                i++;
-                                url(message[i]);
-                            }
-                            default : {
-                                ;
-                            }
-                        }
-                    } else {
-                        if (message[i] == "help") {
-                            help = true;
-                        }
-                    }
-                }
-            }
-        } else {
-            help = true;
-        }
+    public void process(MessageEvent event) {
         execute(event);
     }
 

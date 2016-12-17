@@ -6,7 +6,6 @@
 package org.bibanon.akabane.command;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  *
@@ -22,46 +21,13 @@ public class Commands {
     }
 
     private void init() {
-
-        HashMap<String, Boolean> argsNames = new HashMap<String, Boolean>();
-
-        // CMD: .status 
-        commands.add(new CommandStatus(".status", argsNames.size(), argsNames));
-
-        argsNames = new HashMap<String, Boolean>();
-
-        // CMD: .a
-        argsNames.put("help", Boolean.FALSE); // help doesn't take args.
-        argsNames.put("igsets", Boolean.TRUE); // igsets global,forum,...
-        argsNames.put("meta", Boolean.TRUE); // meta takes ; separated values. warcarchives;website;...
-        argsNames.put("grab", Boolean.TRUE); // grab takes url to grab.
-        commands.add(new CommandGrab(".a", argsNames.size(), argsNames));
-
-        argsNames = new HashMap<String, Boolean>();
-
-        // CMD: .set
-        argsNames.put("job", Boolean.TRUE); // .set <<"job" <id#>> igsets,seperated,values>.
-        commands.add(new CommandSet(".set", argsNames.size(), argsNames));
-
-        argsNames = new HashMap<String, Boolean>();
-
-        // CMD: .is
-        argsNames.put("url", Boolean.TRUE); // url to archive.
-        commands.add(new CommandIS(".is", argsNames.size(), argsNames));
-
-        argsNames = new HashMap<String, Boolean>();
-
-        // CMD: .rr
-        commands.add(new CommandRR(".rr", argsNames.size(), argsNames));
-
-        argsNames = new HashMap<String, Boolean>();
-
-        // CMD: .time
-        commands.add(new CommandTime(".time", argsNames.size(), argsNames));
-
-        argsNames = new HashMap<String, Boolean>();
-
-        // CMD: .help
-        commands.add(new CommandHelp(".help", argsNames.size(), argsNames));
+        // Register commands.
+        commands.add(new CommandStatus(".status"));
+        commands.add(new CommandGrab(".a"));
+        commands.add(new CommandSet(".set"));
+        commands.add(new CommandIS(".is"));
+        commands.add(new CommandRR(".rr"));
+        commands.add(new CommandTime(".time"));
+        commands.add(new CommandHelp(".help"));
     }
 }

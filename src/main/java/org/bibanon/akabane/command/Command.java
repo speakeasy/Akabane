@@ -16,17 +16,13 @@ import org.pircbotx.hooks.events.MessageEvent;
 public abstract class Command {
 
     public String commandString;
-    public int commandArgs;
-    public HashMap<String, Boolean> commandArgsNames;
     public static ProcessManagerGrabSite grabManager = new ProcessManagerGrabSite();
 
-    public Command(String cs, Integer argnum, HashMap<String, Boolean> argsNames) {
+    public Command(String cs) {
         commandString = cs;
-        commandArgs = argnum;
-        commandArgsNames = argsNames;
     }
 
-    public void process(String[] message, MessageEvent event) {
+    public void process(MessageEvent event) {
 
     }
 
