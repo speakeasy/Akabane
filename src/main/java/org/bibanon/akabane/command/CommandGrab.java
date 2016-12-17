@@ -18,60 +18,79 @@ import org.pircbotx.hooks.events.MessageEvent;
  * @author speakeasy
  */
 public class CommandGrab extends Command {
-
-    private static GrabSite grabsite;
-    private static String url = "";
-    private static String igsets = "";
-    private static String meta = "";
-    private static boolean help;
-
+    
+    private GrabSite grabsite;
+    private String url = "";
+    private String igsets = "";
+    private String meta = "";
+    private boolean furl = false;
+    private boolean figsets = false;
+    private boolean fmeta = false;
+    private boolean help = false;
+    
     public CommandGrab(String cs) {
         super(cs);
     }
-
+    
     @Override
     public void process(MessageEvent event) {
         execute(event);
     }
-
+    
     private void execute(MessageEvent event) {
         String[] message = event.getMessage().split(" ");
+        help = false;
         for (int i = 0; i < message.length; i++) {
             if (message[i] == "help") {
                 help = true;
+                //System.out.println("help a");
             }
         }
-
-        for (int i = 0; i < message.length; i++) {
-            if (message[i] == "grab") {
-                i++;
-                url = message[i];
+        
+        for (String str : message) {
+            //System.out.println("Message str: \"" + str + "\"");
+            if (furl) {
+                furl = false;
+                url = str;
+                System.out.println("URL: " + url);
             }
-            if (message[i] == "igsets") {
-                i++;
-                igsets = message[i];
+            if (figsets) {
+                figsets = false;
+                igsets = str;
+                System.out.println("igsets: " + igsets);
             }
-            if (message[i] == "meta") {
-                i++;
-                meta = message[i];
+            if (fmeta) {
+                fmeta = false;
+                meta = str;
+                System.out.println("meta: " + meta);
+            }
+            if (str.equals("grab")) {
+                furl = true;
+            }
+            if (str.equals("igsets")) {
+                figsets = true;
+            }
+            if (str.equals("meta")) {
+                fmeta = true;
             }
         }
-        if (url.isEmpty()) {
+        if (url.equals("")) {
             help = true;
         }
         if (help) {
             event.respond("Usage: .a <grab http://example.com> [igsets list,of,igsets] [meta wararchives;metadat;for;ia]");
         } else {
-            if (!igsets.isEmpty()) {
+            if (!igsets.equals("")) {
                 grabsite.setGrabSite(url, igsets);
             } else {
                 grabsite.setGrabSite(url);
             }
-            if (!meta.isEmpty()) {
+            if (!meta.equals("")) {
                 grabsite.setMetadata(meta);
             }
             grabsite.setMessageEvent(event);
             grabManager.addGrab(grabsite);
+            event.respond("Grab started.");
         }
         grabsite = null;
         url = "";

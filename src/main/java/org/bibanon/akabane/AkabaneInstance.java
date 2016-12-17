@@ -46,7 +46,7 @@ public class AkabaneInstance extends ListenerAdapter {
 
     @Override
     public void onMessage(MessageEvent event) {
-        System.out.println(event.getMessage()); // DEBUG
+        //System.out.println(event.getMessage()); // DEBUG
 
         updateUsers(event.getChannel());
         processor.updateUsers(users);

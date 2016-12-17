@@ -21,6 +21,7 @@ public class ProcessManagerGrabSite implements Runnable {
     private static ArrayList<GrabSite> finishedGS = new ArrayList<GrabSite>();
     private static HashMap<GrabSite, Thread> threads = new HashMap<GrabSite, Thread>();
     public static ProcessManagerGrabSite processManager;
+    public static Thread tProcessManager;
     private boolean running;
 
     public ProcessManagerGrabSite() {
@@ -29,6 +30,8 @@ public class ProcessManagerGrabSite implements Runnable {
 
     private void init() {
         processManager = this;
+        tProcessManager = new Thread(processManager);
+        this.tProcessManager.start();
     }
 
     @Override
