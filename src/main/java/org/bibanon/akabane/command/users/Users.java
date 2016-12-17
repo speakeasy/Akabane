@@ -6,11 +6,10 @@
 package org.bibanon.akabane.command.users;
 
 import java.util.ArrayList;
-import org.pircbotx.hooks.events.MessageEvent;
 
 public class Users {
 
-    private ArrayList<User> Users = new ArrayList<User>();
+    public ArrayList<User> Users = new ArrayList<User>();
 
     public Users() {
     }

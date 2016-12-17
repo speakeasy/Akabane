@@ -9,7 +9,7 @@ package org.bibanon.akabane.command.users;
  *
  * @author speakeasy
  */
-class User {
+public class User {
 
     public final String name;
     public Rank rank;

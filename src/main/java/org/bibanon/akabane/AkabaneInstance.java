@@ -47,13 +47,14 @@ public class AkabaneInstance extends ListenerAdapter {
 
     @Override
     public void onMessage(MessageEvent event) {
-        try {
+        System.out.println(event.getMessage());
+
             updateUsers(event.getChannel());
             processor.updateUsers(users);
+            for(org.bibanon.akabane.command.users.User us : RunnableCommandProcessor.users.Users) {
+                System.out.println("User: " + us.name + " Rank: " + us.rank.name());
+            }
             processor.addEvent(event);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(AkabaneInstance.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     public void init(String[] args) throws Exception {
@@ -74,12 +75,15 @@ public class AkabaneInstance extends ListenerAdapter {
                 .setNickservPassword(authpw.password)
                 .buildConfiguration();
 
+        processor.processor = processor;
+        pThread.start();
         //Create our bot with the configuration
         bot = new PircBotX(configuration);
         //Connect to the server
         bot.startBot();
-        pThread.start();
-        if (bot.isConnected()) {
+
+        Thread.sleep(5000);
+        if (bot.getState() != bot.getState().DISCONNECTED) {
             System.out.println("Connected.");
         }
     }

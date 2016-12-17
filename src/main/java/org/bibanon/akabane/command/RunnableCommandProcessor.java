@@ -26,7 +26,6 @@ public class RunnableCommandProcessor implements Runnable {
     private static boolean running = true;
 
     public RunnableCommandProcessor() {
-        processor = new RunnableCommandProcessor();
     }
 
     @Override
@@ -38,7 +37,7 @@ public class RunnableCommandProcessor implements Runnable {
         }
         while (running) {
             try {
-                Thread.sleep(110);
+                Thread.sleep(1000);
                 synchronized (addMessages) {
                     for (MessageEvent ev : addMessages) {
                         messages.add(addMessages.remove(addMessages.indexOf(ev)));
@@ -59,21 +58,14 @@ public class RunnableCommandProcessor implements Runnable {
     }
 
     public void updateUsers(Users users) {
-        synchronized (this.users) {
             this.users = users;
-        }
     }
 
     public void process(MessageEvent event) {
-        synchronized (this.users) {
-            this.users = users;
-        }
         String[] message = event.getMessage().split(" ");
         // CMD: Check if is user.
-        synchronized (this.users) {
             if (!users.isUser(event.getUser().getNick())) {
                 return;
-            }
         }
         for (Command c : commands.commands) {
             if (message[0] == c.commandString) {
@@ -122,18 +114,14 @@ public class RunnableCommandProcessor implements Runnable {
     }
 
     public boolean hasPermissions(MessageEvent event, Command command) {
-        synchronized (this.users) {
-            if (users.hasPermission(event.getUser().getNick(), command.commandString)) {
-                return true;
-            }
+        if (users.hasPermission(event.getUser().getNick(), command.commandString)) {
+            return true;
         }
         return false;
     }
 
-    public void addEvent(MessageEvent event) throws InterruptedException {
-        synchronized (addMessages) {
-            addMessages.add(event);
-        }
+    public void addEvent(MessageEvent event) {
+        addMessages.add(event);
     }
 
     public void die() {
