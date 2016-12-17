@@ -23,7 +23,7 @@ public class CommandHelp extends Command {
         execute(event);
     }
     
-    public void execute(MessageEvent event) {
+    private void execute(MessageEvent event) {
         event.respond("Usage: Commands: <.a|.set|.status|.is|.rr|.time> <options> <>=required. []=optional.");
     }
 }

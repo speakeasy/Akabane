@@ -62,6 +62,6 @@ public class Commands {
         argsNames = new HashMap<String, Boolean>();
 
         // CMD: .help
-        commands.add(new CommandTime(".help", argsNames.size(), argsNames));
+        commands.add(new CommandHelp(".help", argsNames.size(), argsNames));
     }
 }
