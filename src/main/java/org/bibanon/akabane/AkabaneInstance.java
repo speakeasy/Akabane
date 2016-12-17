@@ -3,8 +3,6 @@ package org.bibanon.akabane;
 import org.bibanon.akabane.command.users.Users;
 import java.io.File;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bibanon.akabane.command.ProcessCommands;
 import org.bibanon.akabane.command.ircauth.IRCAuth;
 import org.bibanon.akabane.command.ircauth.YAMLAuth;
