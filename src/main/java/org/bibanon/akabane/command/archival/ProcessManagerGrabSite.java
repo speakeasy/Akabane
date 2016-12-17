@@ -64,6 +64,7 @@ public class ProcessManagerGrabSite implements Runnable {
                     }
                 }
             }
+            // TODO: finishedGS to IA upload.
         }
     }
 

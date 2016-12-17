@@ -5,6 +5,7 @@
  */
 package org.bibanon.akabane.command;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import org.bibanon.akabane.command.archival.GrabSite;
 import org.pircbotx.hooks.events.MessageEvent;
@@ -29,17 +30,27 @@ public class CommandStatus extends Command {
         HashMap<Integer, String> buildList = new HashMap<Integer, String>();
         int i = 0;
         synchronized (grabManager) {
-            for (GrabSite gs : grabManager.getFinished()) {
-                buildList.put(i, "Finished: PID: " + gs.getPid() + " URL: " + gs.getURL());
-                i++;
+            ArrayList<GrabSite> list;
+            list = grabManager.getFinished();
+            if (list.size() > 0) {
+                for (GrabSite gs : list) {
+                    buildList.put(i, "Finished: PID: " + gs.getPid() + " URL: " + gs.getURL());
+                    i++;
+                }
             }
-            for (GrabSite gs : grabManager.getRunning()) {
-                buildList.put(i, "Running: PID: " + gs.getPid() + " URL: " + gs.getURL());
-                i++;
+            list = grabManager.getRunning();
+            if (list.size() > 0) {
+                for (GrabSite gs : list) {
+                    buildList.put(i, "Running: PID: " + gs.getPid() + " URL: " + gs.getURL());
+                    i++;
+                }
             }
-            for (GrabSite gs : grabManager.getWaiting()) {
-                buildList.put(i, "Waiting: URL: " + gs.getURL());
-                i++;
+            list = grabManager.getWaiting();
+            if (list.size() > 0) {
+                for (GrabSite gs : list) {
+                    buildList.put(i, "Waiting: URL: " + gs.getURL());
+                    i++;
+                }
             }
         }
         while (i >= 0) {
