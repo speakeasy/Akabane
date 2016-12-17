@@ -19,8 +19,11 @@ import org.pircbotx.hooks.events.MessageEvent;
  */
 public class CommandGrab extends Command {
 
-    GrabSite grabsite;
-    boolean help = false;
+    private static GrabSite grabsite;
+    private static String url = "";
+    private static String igsets = "";
+    private static String meta = "";
+    private static boolean help;
 
     public CommandGrab(String cs) {
         super(cs);
@@ -32,32 +35,51 @@ public class CommandGrab extends Command {
     }
 
     private void execute(MessageEvent event) {
+        String[] message = event.getMessage().split(" ");
+        for (int i = 0; i < message.length; i++) {
+            if (message[i] == "help") {
+                help = true;
+            }
+        }
 
+        for (int i = 0; i < message.length; i++) {
+            if (message[i] == "grab") {
+                i++;
+                url = message[i];
+            }
+            if (message[i] == "igsets") {
+                i++;
+                igsets = message[i];
+            }
+            if (message[i] == "meta") {
+                i++;
+                meta = message[i];
+            }
+        }
+        if (url.isEmpty()) {
+            help = true;
+        }
         if (help) {
             event.respond("Usage: .a <grab http://example.com> [igsets list,of,igsets] [meta wararchives;metadat;for;ia]");
             grabsite = null;
             help = false;
-            return;
+        } else {
+            if (!igsets.isEmpty()) {
+                grabsite.setGrabSite(url, igsets);
+            } else {
+                grabsite.setGrabSite(url);
+            }
+            if (!meta.isEmpty()) {
+                grabsite.setMetadata(meta);
+            }
+            grabsite.setMessageEvent(event);
+            grabManager.addGrab(grabsite);
+            grabsite = null;
+            url = "";
+            igsets = "";
+            meta = "";
+            help = false;
         }
-        grabManager.addGrab(grabsite);
-        grabsite = null;
-    }
 
-    public void grab(String url) {
-        help = false;
-        grabsite = new GrabSite();
-        grabsite.setGrabSite(url);
-    }
-
-    public void help() {
-        help = true;
-    }
-
-    public void igsets(String igsets) {
-        grabsite.setGrabSite("", igsets);
-    }
-
-    public void meta(String meta) {
-        grabsite.setMetadata(meta);
     }
 }

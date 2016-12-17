@@ -6,6 +6,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.pircbotx.hooks.events.MessageEvent;
 
 public class GrabSite implements Runnable {
 
@@ -15,9 +16,14 @@ public class GrabSite implements Runnable {
     private URL url;
     private IAMetadata metadata;
     private boolean running;
+    private MessageEvent event;
 
     public void setGrabSite(URL url) {
         setGrabSite(url, "");
+    }
+    
+    public void setMessageEvent(MessageEvent mev) {
+        event = mev;
     }
 
     public void setGrabSite(String theurl) {
