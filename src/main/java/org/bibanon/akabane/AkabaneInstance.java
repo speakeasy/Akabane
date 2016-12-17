@@ -24,7 +24,7 @@ public class AkabaneInstance extends ListenerAdapter {
     private static Users users = new Users();
     //    static URLValidator validator = new URLValidator();
     //util
-    private static File cwd = new File(System.getProperty("user.dir", "./"));
+    public static final File cwd = new File(System.getProperty("user.dir", "./"));
     private static ProcessCommands processor = new ProcessCommands();
 
     private IRCAuth authpw = new IRCAuth();

@@ -1,7 +1,0 @@
-GET /cmsdata/static-assets/img/zend-server-cloudy-bg.png HTTP/1.1
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0
-Referer: http://www.zend.com/
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: en-US,en;q=0.5
-Host: static.zend.com
-

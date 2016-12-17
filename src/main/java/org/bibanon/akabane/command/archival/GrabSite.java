@@ -1,11 +1,14 @@
 package org.bibanon.akabane.command.archival;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bibanon.akabane.AkabaneInstance;
 import org.pircbotx.hooks.events.MessageEvent;
 
 public class GrabSite implements Runnable {
@@ -18,16 +21,20 @@ public class GrabSite implements Runnable {
     private boolean running;
     private MessageEvent event;
     public Thread thread = new Thread(this);
+    public GrabSiteState state = GrabSiteState.STOPPED;
+
+    private File directory;
 
     public void setGrabSite(URL url) {
         setGrabSite(url, "");
     }
-    
+
     public void setMessageEvent(MessageEvent mev) {
         event = mev;
     }
 
     public void setGrabSite(String theurl) {
+        state = GrabSiteState.INIT;
         try {
             url = new URL(theurl);
             setGrabSite(url, "");
@@ -37,6 +44,7 @@ public class GrabSite implements Runnable {
     }
 
     public void setGrabSite(String theurl, String igsets) {
+        state = GrabSiteState.INIT;
         try {
             if (theurl != "") {
                 url = new URL(theurl);
@@ -50,6 +58,7 @@ public class GrabSite implements Runnable {
     }
 
     public void setGrabSite(URL theurl, String igsets) {
+        state = GrabSiteState.INIT;
         try {
             url = new URL(theurl.toExternalForm().replaceAll("[&]", "\\&").replaceAll("[\"]", "\\\"").replaceAll("[;]", "\\;").replaceAll("[|]", "").replaceAll("[.][.][/]", "./").replaceAll("[$]", "\\$").replaceAll(" ", ""));
         } catch (MalformedURLException ex) {
@@ -65,9 +74,13 @@ public class GrabSite implements Runnable {
             }
             this.igsets += igsets.replaceAll("[&]", "\\&").replaceAll("[\"]", "\\\"").replaceAll("[;]", "\\;").replaceAll("[|]", "").replaceAll("[.][.][/]", "./").replaceAll("[$]", "\\$").replaceAll(" ", "") + " ";
         }
+        state = GrabSiteState.INIT_DONE;
     }
 
     public void setMetadata(String data) {
+        if (state != GrabSiteState.INIT_DONE) {
+            state = GrabSiteState.INIT;
+        }
         if (url != null && data != null) {
             metadata = new IAMetadata(url, data);
         }
@@ -79,24 +92,57 @@ public class GrabSite implements Runnable {
 
     @Override
     public void run() {
+        state = GrabSiteState.RUNNING;
         try {
-            process = Runtime.getRuntime().exec("grab-site " + url.toExternalForm() + " " + this.igsets);
+            directory = new File(AkabaneInstance.cwd.getAbsoluteFile() + "/" + url.getHost());
+            process = Runtime.getRuntime().exec("grab-site " + url.toExternalForm() + " " + this.igsets + " --dir=" + directory);
             pid = getPid(process);
             running = true;
             event.respond("Grab-Site PID: " + pid);
             while (process.isAlive() && running) {
                 Thread.sleep(200);
             }
-            event.respond("Grab-Site " + url.toExternalForm() + " finished!");
+
             if (running == false) {
                 process.destroy();
             }
+            running = false;
+            state = GrabSiteState.FINISHED_GRAB;
+            event.respond("Grab-Site " + url.toExternalForm() + " finished!");
+            //uploadToIA();
         } catch (IOException ex) {
             Logger.getLogger(GrabSite.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
             Logger.getLogger(GrabSite.class.getName()).log(Level.SEVERE, null, ex);
         }
-        running = false;
+
+    }
+
+    private void uploadToIA() throws IOException, InterruptedException {
+        event.respond("Starting IA Upload: " + directory.getName());
+        state = GrabSiteState.INIT_IA;
+        ArrayList<File> warcs = new ArrayList<File>();
+        File[] files = directory.listFiles();
+        for (File fi : files) {
+            if (fi.canRead() && fi.isFile() && fi.getName().endsWith(".warc.gz")) {
+                warcs.add(fi);
+            }
+        }
+        state = GrabSiteState.UPLOADING;
+        for (File fi : warcs) {
+            process = Runtime.getRuntime().exec("ia upload " + metadata.iaMetadata() + fi.getAbsolutePath());
+            pid = getPid(process);
+            running = true;
+            event.respond("IA Upload PID: " + pid);
+            event.respond("File: " + fi.getName());
+            while (process.isAlive() && running) {
+                Thread.sleep(200);
+            }
+
+            if (running == false) {
+                process.destroy();
+            }
+        }
     }
 
     public int getPid(Process process) {
