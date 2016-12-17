@@ -5,7 +5,7 @@ import java.io.File;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.bibanon.akabane.command.RunnableCommandProcessor;
+import org.bibanon.akabane.command.ProcessCommands;
 import org.bibanon.akabane.command.ircauth.IRCAuth;
 import org.bibanon.akabane.command.ircauth.YAMLAuth;
 import org.bibanon.akabane.command.users.Rank;
@@ -27,8 +27,7 @@ public class AkabaneInstance extends ListenerAdapter {
     //    static URLValidator validator = new URLValidator();
     //util
     private static File cwd = new File(System.getProperty("user.dir", "./"));
-    private static RunnableCommandProcessor processor = new RunnableCommandProcessor();
-    private static Thread pThread = new Thread(processor);
+    private static ProcessCommands processor = new ProcessCommands();
 
     private IRCAuth authpw = new IRCAuth();
     private static String igsets, meta = "";
@@ -51,10 +50,10 @@ public class AkabaneInstance extends ListenerAdapter {
 
             updateUsers(event.getChannel());
             processor.updateUsers(users);
-            for(org.bibanon.akabane.command.users.User us : RunnableCommandProcessor.users.Users) {
+            for(org.bibanon.akabane.command.users.User us : ProcessCommands.users.Users) {
                 System.out.println("User: " + us.name + " Rank: " + us.rank.name());
             }
-            processor.addEvent(event);
+            processor.process(event);
     }
 
     public void init(String[] args) throws Exception {
@@ -75,8 +74,7 @@ public class AkabaneInstance extends ListenerAdapter {
                 .setNickservPassword(authpw.password)
                 .buildConfiguration();
 
-        processor.processor = processor;
-        pThread.start();
+        ProcessCommands.processor = processor;
         //Create our bot with the configuration
         bot = new PircBotX(configuration);
         //Connect to the server

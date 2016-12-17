@@ -16,59 +16,27 @@ import org.pircbotx.hooks.events.MessageEvent;
  *
  * @author speakeasy
  */
-public class RunnableCommandProcessor implements Runnable {
+public class ProcessCommands{
 
-    public static RunnableCommandProcessor processor;
+    public static ProcessCommands processor;
     public static Users users;
     public static final Commands commands = new Commands();
-    private static ArrayList<MessageEvent> messages = new ArrayList<MessageEvent>();
-    private ArrayList<MessageEvent> addMessages = new ArrayList<MessageEvent>();
-    private static boolean running = true;
 
-    public RunnableCommandProcessor() {
-    }
-
-    @Override
-    public void run() {
-        try {
-            Thread.sleep(7000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(RunnableCommandProcessor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        while (running) {
-            try {
-                Thread.sleep(1000);
-                synchronized (addMessages) {
-                    for (MessageEvent ev : addMessages) {
-                        messages.add(addMessages.remove(addMessages.indexOf(ev)));
-                    }
-                }
-                if (messages.size() > 0) {
-                    for (MessageEvent event : messages) {
-                        process(event);
-                    }
-                }
-            } catch (InterruptedException ex) {
-                Logger.getLogger(RunnableCommandProcessor.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (!AkabaneInstance.bot.isConnected()) {
-                die();
-            }
-        }
+    public ProcessCommands() {
     }
 
     public void updateUsers(Users users) {
-            this.users = users;
+        this.users = users;
     }
 
     public void process(MessageEvent event) {
         String[] message = event.getMessage().split(" ");
         // CMD: Check if is user.
-            if (!users.isUser(event.getUser().getNick())) {
-                return;
+        if (!users.isUser(event.getUser().getNick())) {
+            return;
         }
-        for (Command c : commands.commands) {
-            if (message[0] == c.commandString) {
+        for (Command c : Commands.commands) {
+            if (message[0].equals(c.commandString)) {
                 // CMD: Permissions.
                 if (hasPermissions(event, c)) {
                     switch (c.commandString) {
@@ -102,9 +70,12 @@ public class RunnableCommandProcessor implements Runnable {
                             cc.process(message, event);
                             return;
                         }
-                        default: {
+                        case ".help": {
                             CommandHelp cc = (CommandHelp) c;
                             cc.process(message, event);
+                            return;
+                        }
+                        default: {
                             return;
                         }
                     }
@@ -118,13 +89,5 @@ public class RunnableCommandProcessor implements Runnable {
             return true;
         }
         return false;
-    }
-
-    public void addEvent(MessageEvent event) {
-        addMessages.add(event);
-    }
-
-    public void die() {
-        running = false;
     }
 }
