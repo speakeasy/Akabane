@@ -5,7 +5,6 @@
  */
 package org.bibanon.akabane.command;
 
-import java.util.HashMap;
 import java.util.Random;
 import org.pircbotx.hooks.events.MessageEvent;
 
