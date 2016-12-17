@@ -109,7 +109,7 @@ public class GrabSite implements Runnable {
             running = false;
             state = GrabSiteState.FINISHED_GRAB;
             event.respond("Grab-Site " + url.toExternalForm() + " finished!");
-            //uploadToIA();
+            uploadToIA();
         } catch (IOException ex) {
             Logger.getLogger(GrabSite.class.getName()).log(Level.SEVERE, null, ex);
         } catch (InterruptedException ex) {
@@ -130,7 +130,7 @@ public class GrabSite implements Runnable {
         }
         state = GrabSiteState.UPLOADING;
         for (File fi : warcs) {
-            process = Runtime.getRuntime().exec("ia upload " + metadata.iaMetadata() + fi.getAbsolutePath());
+            process = Runtime.getRuntime().exec("ia upload warc-" + directory.getName() + " " + metadata.iaMetadata() + fi.getAbsolutePath());
             pid = getPid(process);
             running = true;
             event.respond("IA Upload PID: " + pid);
@@ -143,6 +143,7 @@ public class GrabSite implements Runnable {
                 process.destroy();
             }
         }
+        state = GrabSiteState.FINISHED_UPLOADING;
     }
 
     public int getPid(Process process) {

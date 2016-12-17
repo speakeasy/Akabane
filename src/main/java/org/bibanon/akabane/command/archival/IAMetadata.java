@@ -30,6 +30,7 @@ public class IAMetadata {
             iametadatas += ";" + data;
         }
         iametadatas += "\"";
+        iametadatas += " --metadata=\"mediatype:web\"";
     }
 
     public String iaMetadata() {
