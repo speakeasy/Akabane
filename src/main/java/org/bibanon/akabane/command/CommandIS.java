@@ -18,7 +18,7 @@ public class CommandIS extends Command {
     private static ArchiveIsHtmlParser archiveis = new ArchiveIsHtmlParser();
     private static String url;
     private boolean help = false;
-    
+
     public CommandIS(String cs) {
         super(cs);
         archiveis.init();
@@ -29,19 +29,26 @@ public class CommandIS extends Command {
         execute(event);
     }
 
-    public void url(String url) {
-        this.url = url;
-    }
-
-    public void execute(MessageEvent event) {
-        if(help) {
-            event.respond("Usage: .is url http://example.com");
-            help = false;
-            return;
+    private void execute(MessageEvent event) {
+        String[] message = event.getMessage().split(" ");
+        for (int i = 0; i < message.length; i++) {
+            if (message[i] == "help") {
+                help = true;
+            }
         }
-        String theUrl = archiveis.submitURL(url);
+        if(message.length == 2) {
+            url = message[1];
+        }
+        if (help) {
+            event.respond("Usage: .is http://example.com");
+            help = false;
+        } else {
+            String theUrl = archiveis.submitURL(url);
+            event.respond("URL Found: " + theUrl);
+        }
         url = null;
-        event.respond("URL Found: " + theUrl);
+        help = false;
+
     }
 
 }

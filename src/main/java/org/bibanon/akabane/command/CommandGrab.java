@@ -61,8 +61,6 @@ public class CommandGrab extends Command {
         }
         if (help) {
             event.respond("Usage: .a <grab http://example.com> [igsets list,of,igsets] [meta wararchives;metadat;for;ia]");
-            grabsite = null;
-            help = false;
         } else {
             if (!igsets.isEmpty()) {
                 grabsite.setGrabSite(url, igsets);
@@ -74,12 +72,11 @@ public class CommandGrab extends Command {
             }
             grabsite.setMessageEvent(event);
             grabManager.addGrab(grabsite);
-            grabsite = null;
-            url = "";
-            igsets = "";
-            meta = "";
-            help = false;
         }
-
+        grabsite = null;
+        url = "";
+        igsets = "";
+        meta = "";
+        help = false;
     }
 }
