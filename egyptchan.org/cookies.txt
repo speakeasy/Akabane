@@ -1,6 +1,0 @@
-# Netscape HTTP Cookie File
-# http://curl.haxx.se/rfc/cookie_spec.html
-# This is a generated file!  Do not edit.
-
-.blogspot.com	TRUE	/	FALSE	2147483647	NCR	1
-.reddit.com	TRUE	/	FALSE	2147483647	over18	1

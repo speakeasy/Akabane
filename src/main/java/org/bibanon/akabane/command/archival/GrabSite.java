@@ -124,7 +124,7 @@ public class GrabSite implements Runnable {
         ArrayList<File> warcs = new ArrayList<File>();
         File[] files = directory.listFiles();
         for (File fi : files) {
-            if (fi.canRead() && fi.isFile() && fi.getName().endsWith(".warc.gz")) {
+            if (fi.canRead() && fi.isFile() && (fi.getName().endsWith(".warc.gz") || fi.getName().endsWith(".cdx"))) {
                 warcs.add(fi);
             }
         }
