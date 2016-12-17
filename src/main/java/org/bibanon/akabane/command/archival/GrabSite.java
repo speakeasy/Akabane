@@ -144,6 +144,7 @@ public class GrabSite implements Runnable {
             }
         }
         state = GrabSiteState.FINISHED_UPLOADING;
+        event.respond("IA upload finished: " + directory.getName());
     }
 
     public int getPid(Process process) {

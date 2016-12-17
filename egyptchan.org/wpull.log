@@ -1,0 +1,11 @@
+2016-12-17 23:46:31,435 - wpull.builder - INFO - Using Python hook script /home/speakeasy/.local/lib/python3.4/site-packages/libgrabsite/wpull_hooks.py.
+2016-12-17 23:46:31,561 - wpull.processor.web - INFO - Fetching ‘http://egyptchan.org/’.
+2016-12-17 23:46:32,022 - wpull.processor.web - INFO - Fetched ‘http://egyptchan.org/’: 200 OK. Length: unspecified [text/html; charset=UTF-8].
+2016-12-17 23:46:32,075 - wpull.processor.web - INFO - Fetching ‘http://egyptchan.org/robots.txt’.
+2016-12-17 23:46:32,079 - wpull.processor.web - INFO - Fetching ‘http://egyptchan.org/sitemap.xml’.
+2016-12-17 23:46:32,436 - wpull.processor.web - INFO - Fetched ‘http://egyptchan.org/robots.txt’: 404 Not Found. Length: 169 [text/html].
+2016-12-17 23:46:32,750 - wpull.processor.web - INFO - Fetched ‘http://egyptchan.org/sitemap.xml’: 404 Not Found. Length: 169 [text/html].
+2016-12-17 23:46:32,772 - wpull.app - INFO - FINISHED.
+2016-12-17 23:46:32,773 - wpull.app - INFO - Duration: 0:00:01. Speed: 102.3 B/s.
+2016-12-17 23:46:32,774 - wpull.app - INFO - Downloaded: 1 file, 73.0 B.
+2016-12-17 23:46:32,775 - wpull.app - INFO - Exiting with status 0.
