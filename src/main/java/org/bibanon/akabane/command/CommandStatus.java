@@ -51,9 +51,13 @@ public class CommandStatus extends Command {
                 i++;
             }
         }
-        while (i >= 0) {
-            event.respond(buildList.get(i));
-            i--;
+        if (buildList.isEmpty()) {
+            event.respond("Status: no current jobs exist.");
+        } else {
+            while (i >= 0) {
+                event.respond(buildList.get(i));
+                i--;
+            }
         }
     }
 
