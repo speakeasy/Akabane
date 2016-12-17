@@ -29,29 +29,30 @@ public class CommandGrab extends Command {
     @Override
     public void process(String[] message, MessageEvent event) {
         if (message.length > 1) {
-            Method method;
             grabsite = new GrabSite();
             for (int i = 0; i < message.length; i++) {
                 for (String arg : commandArgsNames.keySet()) {
-                    if (message[i] == arg) {
-                        if (commandArgsNames.get(arg)) {
-                            try {
-                                // command takes arg
-                                
-                                method = this.getClass().getDeclaredMethod(arg, String.class);
+                    if (message[i] == arg && i < message.length + 1 &! commandArgsNames.containsKey(message[i+i])) {
+                        switch(arg) {
+                            case "grab" : {
                                 i++;
-                                method.invoke(this.getClass(), message[i]);
-                            } catch (NoSuchMethodException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (SecurityException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (IllegalAccessException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (IllegalArgumentException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (InvocationTargetException ex) {
-                                Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
+                                grab(message[i]);
                             }
+                            case "igsets" : {
+                                i++;
+                                igsets(message[i]);
+                            }
+                            case "meta": {
+                                i++;
+                                meta(message[i]);
+                            }
+                            default : {
+                                ;
+                            }
+                        }
+                    } else {
+                        if (message[i] == "help") {
+                            help = true;
                         }
                     }
                 }
@@ -90,14 +91,5 @@ public class CommandGrab extends Command {
 
     public void meta(String meta) {
         grabsite.setMetadata(meta);
-    }
-
-    private boolean contains(String[] message, String contain) {
-        for (String s : message) {
-            if (s == contain) {
-                return true;
-            }
-        }
-        return false;
     }
 }

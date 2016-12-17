@@ -21,7 +21,8 @@ public class CommandIS extends Command {
 
     private static ArchiveIsHtmlParser archiveis = new ArchiveIsHtmlParser();
     private static String url;
-
+    private boolean help = false;
+    
     public CommandIS(String cs, Integer argnum, HashMap<String, Boolean> argsNames) {
         super(cs, argnum, argsNames);
         archiveis.init();
@@ -30,34 +31,29 @@ public class CommandIS extends Command {
     @Override
     public void process(String[] message, MessageEvent event) {
         if (message.length > 1) {
-            Method method;
             for (int i = 0; i < message.length; i++) {
                 for (String arg : commandArgsNames.keySet()) {
-                    if (message[i] == arg) {
-                        if (commandArgsNames.get(arg)) {
-                            try {
-                                // command takes arg
-                                method = this.getClass().getDeclaredMethod(arg, String.class);
+                    if (message[i] == arg && i < message.length + 1 &! commandArgsNames.containsKey(message[i+i])) {
+                        switch(arg) {
+                            case "url" : {
                                 i++;
-                                method.invoke(this.getClass(), message[i]);
-                            } catch (NoSuchMethodException ex) {
-                                Logger.getLogger(CommandIS.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (IllegalAccessException ex) {
-                                Logger.getLogger(CommandIS.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (IllegalArgumentException ex) {
-                                Logger.getLogger(CommandIS.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (InvocationTargetException ex) {
-                                Logger.getLogger(CommandIS.class.getName()).log(Level.SEVERE, null, ex);
+                                url(message[i]);
                             }
+                            default : {
+                                ;
+                            }
+                        }
+                    } else {
+                        if (message[i] == "help") {
+                            help = true;
                         }
                     }
                 }
-                execute(event);
             }
         } else {
-            event.respond("HELP: Usage: [not implemented]");
-            return;
+            help = true;
         }
+        execute(event);
     }
 
     public void url(String url) {
@@ -65,6 +61,11 @@ public class CommandIS extends Command {
     }
 
     public void execute(MessageEvent event) {
+        if(help) {
+            event.respond("Usage: .is url http://example.com");
+            help = false;
+            return;
+        }
         String theUrl = archiveis.submitURL(url);
         url = null;
         event.respond("URL Found: " + theUrl);
