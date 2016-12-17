@@ -29,28 +29,6 @@ public class CommandStatus extends Command {
         // TODO list job statuses.
         ArrayList<String> buildList = new ArrayList<String>();
         int i = 0;
-        ArrayList<GrabSite> list;
-        list = grabManager.getFinished();
-        if (list.size() > 0) {
-            for (GrabSite gs : list) {
-                buildList.add("Finished: PID: " + gs.getPid() + " URL: " + gs.getURL());
-                i++;
-            }
-        }
-        list = grabManager.getRunning();
-        if (list.size() > 0) {
-            for (GrabSite gs : list) {
-                buildList.add("Running: PID: " + gs.getPid() + " URL: " + gs.getURL());
-                i++;
-            }
-        }
-        list = grabManager.getWaiting();
-        if (list.size() > 0) {
-            for (GrabSite gs : list) {
-                buildList.add("Waiting: URL: " + gs.getURL());
-                i++;
-            }
-        }
         if (buildList.isEmpty()) {
             buildList.add("Status: No jobs are currently running.");
         }

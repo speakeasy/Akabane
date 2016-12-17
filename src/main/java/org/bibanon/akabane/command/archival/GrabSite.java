@@ -17,6 +17,7 @@ public class GrabSite implements Runnable {
     private IAMetadata metadata;
     private boolean running;
     private MessageEvent event;
+    public Thread thread = new Thread(this);
 
     public void setGrabSite(URL url) {
         setGrabSite(url, "");
@@ -82,9 +83,11 @@ public class GrabSite implements Runnable {
             process = Runtime.getRuntime().exec("grab-site " + url.toExternalForm() + " " + this.igsets);
             pid = getPid(process);
             running = true;
+            event.respond("Grab-Site PID: " + pid);
             while (process.isAlive() && running) {
                 Thread.sleep(200);
             }
+            event.respond("Grab-Site " + url.toExternalForm() + " finished!");
             if (running == false) {
                 process.destroy();
             }

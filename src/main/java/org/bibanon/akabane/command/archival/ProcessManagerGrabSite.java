@@ -25,15 +25,7 @@ public class ProcessManagerGrabSite implements Runnable {
     private boolean running;
 
     public ProcessManagerGrabSite() {
-        init();
     }
-
-    private void init() {
-        processManager = this;
-        tProcessManager = new Thread(processManager);
-        this.tProcessManager.start();
-    }
-
     @Override
     public void run() {
         running = true;

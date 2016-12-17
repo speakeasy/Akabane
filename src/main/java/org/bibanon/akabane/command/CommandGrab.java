@@ -7,6 +7,7 @@ package org.bibanon.akabane.command;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +20,7 @@ import org.pircbotx.hooks.events.MessageEvent;
  */
 public class CommandGrab extends Command {
     
-    private GrabSite grabsite;
+    //private GrabSite grabsite;
     private String url = "";
     private String igsets = "";
     private String meta = "";
@@ -27,6 +28,8 @@ public class CommandGrab extends Command {
     private boolean figsets = false;
     private boolean fmeta = false;
     private boolean help = false;
+    
+    private HashMap<GrabSite, Thread> grabsites = new HashMap<GrabSite, Thread>();
     
     public CommandGrab(String cs) {
         super(cs);
@@ -80,6 +83,7 @@ public class CommandGrab extends Command {
         if (help) {
             event.respond("Usage: .a <grab http://example.com> [igsets list,of,igsets] [meta wararchives;metadat;for;ia]");
         } else {
+            GrabSite grabsite = new GrabSite();
             if (!igsets.equals("")) {
                 grabsite.setGrabSite(url, igsets);
             } else {
@@ -89,10 +93,10 @@ public class CommandGrab extends Command {
                 grabsite.setMetadata(meta);
             }
             grabsite.setMessageEvent(event);
-            grabManager.addGrab(grabsite);
+            grabsites.put(grabsite, grabsite.thread);
+            grabsite.thread.start();
             event.respond("Grab started.");
         }
-        grabsite = null;
         url = "";
         igsets = "";
         meta = "";
