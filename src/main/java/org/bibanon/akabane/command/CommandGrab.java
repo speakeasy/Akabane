@@ -5,12 +5,7 @@
  */
 package org.bibanon.akabane.command;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.bibanon.akabane.command.archival.GrabSite;
 import org.pircbotx.hooks.events.MessageEvent;
 

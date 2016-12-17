@@ -6,8 +6,6 @@
 package org.bibanon.akabane.command;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import org.bibanon.akabane.command.archival.GrabSite;
 import org.pircbotx.hooks.events.MessageEvent;
 
 /**
