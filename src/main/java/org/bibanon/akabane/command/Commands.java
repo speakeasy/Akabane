@@ -59,5 +59,10 @@ public class Commands {
 
         // CMD: .time
         commands.add(new CommandTime(".time", CommandTime.class, argsNames.size(), argsNames));
+
+        argsNames = new HashMap<String, Boolean>();
+
+        // CMD: .help
+        commands.add(new CommandTime(".help", CommandTime.class, argsNames.size(), argsNames));
     }
 }

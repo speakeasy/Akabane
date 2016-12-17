@@ -16,7 +16,7 @@ import org.pircbotx.hooks.events.MessageEvent;
  *
  * @author speakeasy
  */
-public class ProcessCommands{
+public class ProcessCommands {
 
     public static ProcessCommands processor;
     public static Users users;
@@ -38,47 +38,60 @@ public class ProcessCommands{
         for (Command c : Commands.commands) {
             if (message[0].equals(c.commandString)) {
                 // CMD: Permissions.
-                if (hasPermissions(event, c)) {
-                    switch (c.commandString) {
-                        case ".status": {
-                            CommandStatus cc = (CommandStatus) c;
+                switch (c.commandString) {
+                    case ".status": {
+                        CommandStatus cc = (CommandStatus) c;
+                        if (hasPermissions(event, cc)) {
                             cc.process(message, event);
-                            return;
-                        }
-                        case ".a": {
-                            CommandGrab cc = (CommandGrab) c;
-                            cc.process(message, event);
-                            return;
-                        }
-                        case ".set": {
-                            CommandSet cc = (CommandSet) c;
-                            cc.process(message, event);
-                            return;
-                        }
-                        case ".is": {
-                            CommandIS cc = (CommandIS) c;
-                            cc.process(message, event);
-                            return;
-                        }
-                        case ".rr": {
-                            CommandRR cc = (CommandRR) c;
-                            cc.process(message, event);
-                            return;
-                        }
-                        case ".time": {
-                            CommandTime cc = (CommandTime) c;
-                            cc.process(message, event);
-                            return;
-                        }
-                        case ".help": {
-                            CommandHelp cc = (CommandHelp) c;
-                            cc.process(message, event);
-                            return;
-                        }
-                        default: {
                             return;
                         }
                     }
+                    case ".a": {
+                        CommandGrab cc = (CommandGrab) c;
+                        if (hasPermissions(event, cc)) {
+                            cc.process(message, event);
+                        }
+                        return;
+                    }
+                    case ".set": {
+                        CommandSet cc = (CommandSet) c;
+                        if (hasPermissions(event, cc)) {
+                            cc.process(message, event);
+                        }
+                        return;
+                    }
+                    case ".is": {
+                        CommandIS cc = (CommandIS) c;
+                        if (hasPermissions(event, cc)) {
+                            cc.process(message, event);
+                        }
+                        return;
+                    }
+                    case ".rr": {
+                        CommandRR cc = (CommandRR) c;
+                        if (hasPermissions(event, cc)) {
+                            cc.process(message, event);
+                        }
+                        return;
+                    }
+                    case ".time": {
+                        CommandTime cc = (CommandTime) c;
+                        if (hasPermissions(event, cc)) {
+                            cc.process(message, event);
+                        }
+                        return;
+                    }
+                    case ".help": {
+                        CommandHelp cc = (CommandHelp) c;
+                        if (hasPermissions(event, cc)) {
+                            cc.process(message, event);
+                        }
+                        return;
+                    }
+                    default: {
+                        return;
+                    }
+
                 }
             }
         }

@@ -20,6 +20,10 @@ public class CommandHelp extends Command {
 
     @Override
     public void process(String[] message, MessageEvent event) {
+        execute(event);
+    }
+    
+    public void execute(MessageEvent event) {
         event.respond("Usage: Commands: <.a|.set|.status|.is|.rr|.time> <options> <>=required. []=optional.");
     }
 }

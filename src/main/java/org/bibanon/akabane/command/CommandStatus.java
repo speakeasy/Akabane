@@ -29,28 +29,26 @@ public class CommandStatus extends Command {
         // TODO list job statuses.
         HashMap<Integer, String> buildList = new HashMap<Integer, String>();
         int i = 0;
-        synchronized (grabManager) {
-            ArrayList<GrabSite> list;
-            list = grabManager.getFinished();
-            if (list.size() > 0) {
-                for (GrabSite gs : list) {
-                    buildList.put(i, "Finished: PID: " + gs.getPid() + " URL: " + gs.getURL());
-                    i++;
-                }
+        ArrayList<GrabSite> list;
+        list = grabManager.getFinished();
+        if (list.size() > 0) {
+            for (GrabSite gs : list) {
+                buildList.put(i, "Finished: PID: " + gs.getPid() + " URL: " + gs.getURL());
+                i++;
             }
-            list = grabManager.getRunning();
-            if (list.size() > 0) {
-                for (GrabSite gs : list) {
-                    buildList.put(i, "Running: PID: " + gs.getPid() + " URL: " + gs.getURL());
-                    i++;
-                }
+        }
+        list = grabManager.getRunning();
+        if (list.size() > 0) {
+            for (GrabSite gs : list) {
+                buildList.put(i, "Running: PID: " + gs.getPid() + " URL: " + gs.getURL());
+                i++;
             }
-            list = grabManager.getWaiting();
-            if (list.size() > 0) {
-                for (GrabSite gs : list) {
-                    buildList.put(i, "Waiting: URL: " + gs.getURL());
-                    i++;
-                }
+        }
+        list = grabManager.getWaiting();
+        if (list.size() > 0) {
+            for (GrabSite gs : list) {
+                buildList.put(i, "Waiting: URL: " + gs.getURL());
+                i++;
             }
         }
         while (i >= 0) {

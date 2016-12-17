@@ -40,27 +40,21 @@ public class ProcessManagerGrabSite implements Runnable {
             } catch (InterruptedException ex) {
                 Logger.getLogger(ProcessManagerGrabSite.class.getName()).log(Level.SEVERE, null, ex);
             }
-            synchronized (runningGS) {
-                for (GrabSite g : runningGS) {
-                    if (!threads.get(g).isAlive()) {
-                        threads.remove(g);
-                        runningGS.remove(g);
-                        synchronized (finishedGS) {
-                            finishedGS.add(g);
-                        }
-                    }
+            for (GrabSite g : runningGS) {
+                if (!threads.get(g).isAlive()) {
+                    threads.remove(g);
+                    runningGS.remove(g);
+                    finishedGS.add(g);
                 }
-                if (threads.size() < 4) {
-                    synchronized (GrabSites) {
-                        for (GrabSite gs : GrabSites) {
-                            if (threads.size() < 4) {
-                                GrabSites.remove(gs);
-                                runningGS.add(gs);
-                                Thread thread = new Thread(gs);
-                                threads.put(gs, thread);
-                                thread.start();
-                            }
-                        }
+            }
+            if (threads.size() < 4) {
+                for (GrabSite gs : GrabSites) {
+                    if (threads.size() < 4) {
+                        GrabSites.remove(gs);
+                        runningGS.add(gs);
+                        Thread thread = new Thread(gs);
+                        threads.put(gs, thread);
+                        thread.start();
                     }
                 }
             }
@@ -75,21 +69,15 @@ public class ProcessManagerGrabSite implements Runnable {
     }
 
     public ArrayList<GrabSite> getFinished() {
-        synchronized (finishedGS) {
             return (ArrayList<GrabSite>) finishedGS.clone();
-        }
     }
 
     public ArrayList<GrabSite> getRunning() {
-        synchronized (runningGS) {
             return (ArrayList<GrabSite>) runningGS.clone();
-        }
     }
 
     public ArrayList<GrabSite> getWaiting() {
-        synchronized (GrabSites) {
             return (ArrayList<GrabSite>) GrabSites.clone();
-        }
     }
 
     public void die() {

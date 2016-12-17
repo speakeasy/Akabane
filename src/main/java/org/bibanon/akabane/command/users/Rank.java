@@ -47,6 +47,9 @@ public enum Rank {
                     case ".status": {
                         return true;
                     }
+                    case ".help": { 
+                        return true;
+                    }
                     default: {
                         return false;
                     }
@@ -61,12 +64,15 @@ public enum Rank {
                         return true;
                     }
                     case ".rr": {
-                        return true;
+                        return false;
                     }
                     case ".time": {
                         return true;
                     }
                     case ".status": {
+                        return true;
+                    }
+                    case ".help": { 
                         return true;
                     }
                     default: {

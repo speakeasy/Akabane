@@ -39,7 +39,7 @@ public class CommandIS extends Command {
                                 // command takes arg
                                 method = commandClass.getDeclaredMethod(arg, String.class);
                                 i++;
-                                method.invoke(commandClass, message[i]);
+                                method.invoke(this.getClass(), message[i]);
                             } catch (NoSuchMethodException ex) {
                                 Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (SecurityException ex) {
@@ -66,9 +66,10 @@ public class CommandIS extends Command {
         this.url = url;
     }
 
-    private void execute(MessageEvent event) {
-        event.respond("URL Found: " + archiveis.submitURL(url));
+    public void execute(MessageEvent event) {
+        String theUrl = archiveis.submitURL(url);
         url = null;
+        event.respond("URL Found: " + theUrl);
     }
 
 }

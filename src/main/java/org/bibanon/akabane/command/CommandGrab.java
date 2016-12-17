@@ -39,7 +39,7 @@ public class CommandGrab extends Command {
                                 // command takes arg
                                 method = commandClass.getDeclaredMethod(arg, String.class);
                                 i++;
-                                method.invoke(commandClass, message[i]);
+                                method.invoke(this.getClass(), message[i]);
                             } catch (NoSuchMethodException ex) {
                                 Logger.getLogger(CommandGrab.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (SecurityException ex) {

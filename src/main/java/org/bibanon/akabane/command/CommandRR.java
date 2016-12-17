@@ -5,12 +5,8 @@
  */
 package org.bibanon.akabane.command;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.pircbotx.hooks.events.MessageEvent;
 
 /**
