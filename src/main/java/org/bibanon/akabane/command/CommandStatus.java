@@ -27,38 +27,40 @@ public class CommandStatus extends Command {
 
     private void execute(MessageEvent event) {
         // TODO list job statuses.
-        HashMap<Integer, String> buildList = new HashMap<Integer, String>();
+        ArrayList<String> buildList = new ArrayList<String>();
         int i = 0;
         ArrayList<GrabSite> list;
         list = grabManager.getFinished();
         if (list.size() > 0) {
             for (GrabSite gs : list) {
-                buildList.put(i, "Finished: PID: " + gs.getPid() + " URL: " + gs.getURL());
+                buildList.add("Finished: PID: " + gs.getPid() + " URL: " + gs.getURL());
                 i++;
             }
         }
         list = grabManager.getRunning();
         if (list.size() > 0) {
             for (GrabSite gs : list) {
-                buildList.put(i, "Running: PID: " + gs.getPid() + " URL: " + gs.getURL());
+                buildList.add("Running: PID: " + gs.getPid() + " URL: " + gs.getURL());
                 i++;
             }
         }
         list = grabManager.getWaiting();
         if (list.size() > 0) {
             for (GrabSite gs : list) {
-                buildList.put(i, "Waiting: URL: " + gs.getURL());
+                buildList.add("Waiting: URL: " + gs.getURL());
                 i++;
             }
         }
         if (buildList.isEmpty()) {
-            event.respond("Status: no current jobs exist.");
-        } else {
-            while (i >= 0) {
-                event.respond(buildList.get(i));
-                i--;
-            }
+            buildList.add("Status: No jobs are currently running.");
         }
+        while (i >= 0) {
+            event.respond(buildList.get(i));
+            i--;
+        }
+        i = 0;
+        buildList = null;
+
     }
 
 }
