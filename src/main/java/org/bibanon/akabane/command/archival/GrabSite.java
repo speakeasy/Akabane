@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.bibanon.akabane.AkabaneInstance;
@@ -13,6 +16,8 @@ import org.pircbotx.hooks.events.MessageEvent;
 
 public class GrabSite implements Runnable {
 
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private Date date;
     private String igsets = "--igsets=global,";
     private Process process;
     private int pid;
@@ -93,8 +98,14 @@ public class GrabSite implements Runnable {
     @Override
     public void run() {
         state = GrabSiteState.RUNNING;
+        date = new Date();
         try {
-            directory = new File(AkabaneInstance.cwd.getAbsoluteFile() + "/" + url.getHost());
+            directory = new File(AkabaneInstance.cwd.getAbsoluteFile() + "/" + url.getHost().replace(".", "_") + "-" + dateFormat.format(date));
+            if(directory.exists()) {
+                state = GrabSiteState.CANCALLED;
+                running = false;
+                return;
+            }
             process = Runtime.getRuntime().exec("grab-site " + url.toExternalForm() + " " + this.igsets + " --dir=" + directory);
             pid = getPid(process);
             running = true;
@@ -129,12 +140,10 @@ public class GrabSite implements Runnable {
             }
         }
         state = GrabSiteState.UPLOADING;
-        for (File fi : warcs) {
-            process = Runtime.getRuntime().exec("ia upload warc-" + directory.getName() + " " + metadata.iaMetadata() + fi.getAbsolutePath());
+            process = Runtime.getRuntime().exec("ia upload warc-" + directory.getName() + " " + directory.getAbsolutePath() + " " + metadata.iaMetadata());
             pid = getPid(process);
             running = true;
             event.respond("IA Upload PID: " + pid);
-            event.respond("File: " + fi.getName());
             while (process.isAlive() && running) {
                 Thread.sleep(200);
             }
@@ -142,7 +151,6 @@ public class GrabSite implements Runnable {
             if (running == false) {
                 process.destroy();
             }
-        }
         state = GrabSiteState.FINISHED_UPLOADING;
         event.respond("IA upload finished: " + directory.getName());
     }

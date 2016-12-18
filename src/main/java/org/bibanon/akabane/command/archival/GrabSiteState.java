@@ -11,6 +11,7 @@ package org.bibanon.akabane.command.archival;
  */
 public enum GrabSiteState {
     STOPPED,
+    CANCALLED,
     INIT,
     INIT_DONE,
     RUNNING,
