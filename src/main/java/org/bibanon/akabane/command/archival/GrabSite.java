@@ -101,7 +101,7 @@ public class GrabSite implements Runnable {
         date = new Date();
         try {
             directory = new File(AkabaneInstance.cwd.getAbsoluteFile() + "/" + url.getHost().replace(".", "_") + "-" + dateFormat.format(date));
-            if(directory.exists()) {
+            if (directory.exists()) {
                 state = GrabSiteState.CANCALLED;
                 running = false;
                 return;
@@ -132,25 +132,19 @@ public class GrabSite implements Runnable {
     private void uploadToIA() throws IOException, InterruptedException {
         event.respond("Starting IA Upload: " + directory.getName());
         state = GrabSiteState.INIT_IA;
-        ArrayList<File> warcs = new ArrayList<File>();
-        File[] files = directory.listFiles();
-        for (File fi : files) {
-            if (fi.canRead() && fi.isFile() && (fi.getName().endsWith(".warc.gz") || fi.getName().endsWith(".cdx"))) {
-                warcs.add(fi);
-            }
-        }
-        state = GrabSiteState.UPLOADING;
-            process = Runtime.getRuntime().exec("ia upload warc-" + directory.getName() + " " + directory.getAbsolutePath() + " " + metadata.iaMetadata());
-            pid = getPid(process);
-            running = true;
-            event.respond("IA Upload PID: " + pid);
-            while (process.isAlive() && running) {
-                Thread.sleep(200);
-            }
 
-            if (running == false) {
-                process.destroy();
-            }
+        process = Runtime.getRuntime().exec("ia upload warc-" + directory.getName() + " " + directory.getAbsolutePath() + " " + metadata.iaMetadata());
+        pid = getPid(process);
+        state = GrabSiteState.UPLOADING;
+        running = true;
+        event.respond("IA Upload PID: " + pid);
+        while (process.isAlive() && running) {
+            Thread.sleep(200);
+        }
+
+        if (running == false) {
+            process.destroy();
+        }
         state = GrabSiteState.FINISHED_UPLOADING;
         event.respond("IA upload finished: " + directory.getName());
     }
