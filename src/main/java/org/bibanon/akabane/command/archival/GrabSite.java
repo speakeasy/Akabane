@@ -100,7 +100,7 @@ public class GrabSite implements Runnable {
         state = GrabSiteState.RUNNING;
         date = new Date();
         if(metadata == null) {
-            this.setMetadata("warcarchives");
+            this.setMetadata("");
         }
         try {
             directory = new File(AkabaneInstance.cwd.getAbsoluteFile() + "/" + url.getHost().replace(".", "_") + "-" + dateFormat.format(date));
