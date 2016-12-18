@@ -107,6 +107,7 @@ public class GrabSite implements Runnable {
             if (directory.exists()) {
                 state = GrabSiteState.CANCALLED;
                 running = false;
+                event.respond("Job already exists: " + directory.getName());
                 return;
             }
             process = Runtime.getRuntime().exec("grab-site " + url.toExternalForm() + " " + this.igsets + " --dir=" + directory);

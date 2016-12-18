@@ -7,6 +7,7 @@ package org.bibanon.akabane.command;
 
 import java.util.HashMap;
 import org.bibanon.akabane.command.archival.GrabSite;
+import org.bibanon.akabane.command.archival.GrabSiteState;
 import org.pircbotx.hooks.events.MessageEvent;
 
 /**
@@ -91,6 +92,11 @@ public class CommandGrab extends Command {
             grabsites.put(grabsite, grabsite.thread);
             grabsite.thread.start();
             event.respond("Grab started.");
+            for(GrabSite gs : grabsites.keySet()) {
+                if(gs.state.equals(GrabSiteState.CANCALLED) || gs.state.equals(GrabSiteState.FINISHED_UPLOADING)) {
+                    grabsites.remove(gs);
+                }
+            }
         }
         url = "";
         igsets = "";
