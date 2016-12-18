@@ -25,7 +25,7 @@ public class IAMetadata {
 
     private void buildString() {
         String[] sitename = url.toExternalForm().split("//?");
-        iametadatas += sitename[1].toUpperCase() + " \" --metadata=\"subject:warcarchives";
+        iametadatas += sitename[1].toUpperCase() + " \" --metadata=\"subject:";
         if (data.length() > 0) {
             iametadatas += ";" + data;
         }
