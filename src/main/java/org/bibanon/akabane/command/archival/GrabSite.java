@@ -137,6 +137,7 @@ public class GrabSite implements Runnable {
         event.respond("Starting IA Upload: " + directory.getName());
         state = GrabSiteState.INIT_IA;
 
+        event.respond("Running command: " + "ia upload warc-" + directory.getName() + " " + directory.getAbsolutePath() + "/ " + metadata.iaMetadata() + " --verify --delete");
         process = Runtime.getRuntime().exec("ia upload warc-" + directory.getName() + " " + directory.getAbsolutePath() + "/ " + metadata.iaMetadata() + " --verify --delete");
         pid = getPid(process);
         state = GrabSiteState.UPLOADING;
